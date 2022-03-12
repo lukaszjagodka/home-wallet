@@ -1,22 +1,51 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+// import LoginForm from '../LoginForm/LoginForm';
+import LoginForm from '../LoginForm/LoginForm';
+import RegisterForm from '../RegisterForm/RegisterForm';
 import './ChoiceLoginOrCreateAccount.css';
 
 function ChoiceLoginOrCreateAccount() {
-  const [openMenu, setOpenMenu] = useState(true);
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(true);
+  const [isOpenLoginForm, setIsOpenLoginForm] = useState<boolean>(false);
+  const [isOpenRegisterForm, setIsOpenRegisterForm] = useState<boolean>(false);
+
+  const handleLoginForm = () => {
+    setIsOpenLoginForm(true);
+  };
+
+  const handleRegiserForm = () => {
+    setIsOpenRegisterForm(true);
+  };
+
+  const handleOpenLoginForm = (e: any) => {
+    setIsOpenLoginForm(e);
+  };
+
+  const handleOpenRegisterForm = (e: any) => {
+    setIsOpenRegisterForm(e);
+  };
+
   return (
     <div>
-      { openMenu ? (
+      { isOpenLoginForm ? <LoginForm openList={handleOpenLoginForm} /> : ''}
+      { isOpenRegisterForm ? <RegisterForm openList={handleOpenRegisterForm} /> : ''}
+      { isOpenMenu ? (
         <div className="menuLoginOrRegister">
           <div className="appName">Home Wallet</div>
-          <div className="choiceMenu">
-            <div className="loginMenu">
-              <button className="btn" type="button" onClick={() => setOpenMenu(false)}>Login</button>
-            </div>
-            <div className="registerMenu">
-              <button className="btn" type="button" onClick={() => setOpenMenu(false)}>Create account</button>
-            </div>
-          </div>
+          {
+            !isOpenLoginForm ? (
+              <div className="choiceMenu">
+                <div className="loginMenu">
+                  <button className="btn" type="button" onClick={() => handleLoginForm()}>Login</button>
+                </div>
+                <div className="registerMenu">
+                  <button className="btn" type="button" onClick={() => handleRegiserForm()}>Create account</button>
+                </div>
+              </div>
+            ) : ''
+          }
         </div>
       ) : ''}
     </div>
