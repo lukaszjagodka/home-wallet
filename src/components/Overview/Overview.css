@@ -14,6 +14,70 @@
 }
 
 .overviewName { 
-  margin-top: 0.1rem;
-  margin-left: 0.5rem;
+  top: 5px;
+  margin-left: 15px;
+  position: relative;
+}
+
+.monthName {
+  top: -40px;
+  left: 630px;
+  position: relative;
+}
+
+.counters {
+  position: relative;
+}
+
+.incomeMain {
+  position: absolute;
+  text-align: center;
+  margin-left: 20%;
+  transform: translateX(-50%);
+}
+
+.outflowMain {
+  position: absolute;
+  text-align: center;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.balanceMain {
+  position: absolute;
+  text-align: center;
+  margin-left: 80%;
+  transform: translateX(-50%);
+}
+
+.counters {
+  font-size: 20px;
+  color: rgb(110, 110, 110);
+}
+
+.income {
+  color: rgba(0, 128, 0, 0.678);
+}
+
+.outflow {
+  color: rgba(255, 0, 0, 0.678);
+}
+
+.overviewBalance {
+  color: rgba(0, 89, 255, 0.678);
+}
+
+.incomeCounter {
+  position: relative;
+  top: -20px;
+}
+
+.outflowCounter {
+  position: relative;
+  top: -20px;
+}
+
+.balanceCounter {
+  position: relative;
+  top: -20px;
 }
