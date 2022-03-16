@@ -20,7 +20,7 @@ const RegisterForm = function RegisterForm({ openList }: TProps) {
   };
 
   const handleAddAccount = () => {
-    console.log('send to server');
+    openList(false);
   };
 
   return (

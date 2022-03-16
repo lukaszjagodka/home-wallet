@@ -1,0 +1,19 @@
+.chartsContainer {
+  height: 50vh;
+  width: 800px;
+  background-color: rgb(255, 255, 255);
+  margin-top: 20px;
+  margin-right: 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.chartsBar {
+  background-color: rgba(244, 245, 245, 0.835);
+  height: 40px;
+  width: 100%;
+}
+
+.chartsName {
+  margin-top: 0.1rem;
+  margin-left: 0.5rem;
+}

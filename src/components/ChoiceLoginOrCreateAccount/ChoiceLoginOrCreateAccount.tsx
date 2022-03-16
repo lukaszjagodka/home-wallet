@@ -21,6 +21,7 @@ function ChoiceLoginOrCreateAccount() {
 
   const handleOpenLoginForm = (e: any) => {
     setIsOpenLoginForm(e);
+    window.location.href = '/';
   };
 
   const handleOpenRegisterForm = (e: any) => {
