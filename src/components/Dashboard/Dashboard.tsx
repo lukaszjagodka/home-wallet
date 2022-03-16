@@ -10,20 +10,22 @@ import './Dashboard.css';
 class Dashboard extends Component {
   render() {
     return (
-      <div className="dashContainer">
+      <div className="dashboardMain">
         <div className="menu">
           <Menu />
         </div>
         <div>
-          <div className="overview">
-            <Overview />
+          <div className="dashContainer">
+            <div className="overview">
+              <Overview />
+            </div>
+            <div className="transactionContainer">
+              <TransactionsList />
+            </div>
           </div>
-          <div className="transactionContainer">
-            <TransactionsList />
+          <div className="chartContainer">
+            <Charts />
           </div>
-        </div>
-        <div className="chartContainer">
-          <Charts />
         </div>
         <div className="footerContainer">
           <Footer />
