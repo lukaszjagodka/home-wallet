@@ -11,7 +11,7 @@ const Navbar = function Navbar() {
   };
 
   return (
-    <div className="container">
+    <div className="navbarContainer">
       <div className="navbarName">Home Wallet</div>
       <AddTransaction />
       <div className="logoutBtn">

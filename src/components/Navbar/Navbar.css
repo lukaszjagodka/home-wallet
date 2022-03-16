@@ -1,7 +1,11 @@
-.container {
+.navbarContainer {
+  width: 100%;
   height: 50px;
   background-color: rgb(136, 114, 114);
   border-bottom: 1px groove beige;
+  position: fixed;
+  top: 0px;
+  z-index: 1;
 }
 
 .navbarName {
