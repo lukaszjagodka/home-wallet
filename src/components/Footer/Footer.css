@@ -3,5 +3,5 @@
   width: 100%;
   background-color: rgb(136, 114, 114);
   bottom: 0px;
-  position: absolute;
+  position: fixed;
 }
