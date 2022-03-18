@@ -18,3 +18,108 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance:textfield;
 }
+
+.addTransactionPanel {
+  height: '00px';
+}
+
+.addTransactionBar {
+  background-color: rgb(136, 114, 114);
+  height: 40px;
+  top: -20px;
+  position: relative;
+}
+
+.barsName {
+  margin-left: 30px;
+  color: white;
+  top: 2px;
+  position: relative;
+}
+
+.balancePosition {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.borderStyle {
+  border-style: solid;
+  border-width: 2px;
+  position: relative;
+  top: -45px;
+  left: 190px;
+  width: 50px;
+}
+
+.incomeExpense {
+  position: relative;
+  left: 270px;
+  top: -105px;
+}
+
+.categoryStyle {
+  position: relative;
+  left: 270px;
+  top: -100px;
+}
+
+.incomeImg {
+  font-size: 30px;
+  position: absolute;
+  margin-top: -5px;
+}
+
+.incomeName {
+  font-size: 20px;
+  position: absolute;
+  margin-left: 40px;
+}
+
+.expenseImg {
+  font-size: 30px;
+  position: absolute;
+  margin-top: -3px;
+}
+
+.expenseName {
+  font-size: 20px;
+  position: absolute;
+  margin-left: 30px;
+  left: 20px;
+}
+
+.borderStylee {
+  border-style: solid;
+  border-width: 2px;
+  position: relative;
+  top: -130px;
+  left: 540px;
+  width: 50px;
+}
+
+.amountStyle {
+  position: relative;
+  top: -190px;
+  left: 620px;
+  width: 150px;
+}
+
+.dateAndDescription {
+  top: 280px;
+  left: 50px;
+  width: 200px;
+  position: absolute;
+}
+
+.descriptionStyle {
+  position: absolute;
+  margin-left: 210px;
+  top: 0px;
+  width: 100vh;
+}
+
+.formBtn {
+  position: relative;
+  width: 45vw;
+  top: 40px;
+}

@@ -86,7 +86,6 @@ function AddTransaction() {
         newDateFormat,
         description,
       };
-      console.log(newTransaction);
     }
   };
 
@@ -111,15 +110,9 @@ function AddTransaction() {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <div style={{ height: '400px' }}>
-              <div style={{
-                backgroundColor: 'rgb(136, 114, 114)', height: '40px', top: '-20px', position: 'relative',
-              }}
-              >
-                <h1 style={{
-                  marginLeft: '30px', color: 'white',
-                }}
-                >
+            <div className="addTransactionPanel">
+              <div className="addTransactionBar">
+                <h1 className="barsName">
                   Add transaction
                 </h1>
               </div>
@@ -131,20 +124,14 @@ function AddTransaction() {
                   <Typography id="transition-modal-title" variant="h6" component="h2" style={{ color: 'rgba(0, 89, 255, 0.678)' }}>
                     Actual balance
                   </Typography>
-                  <h1 style={{ marginTop: '10px', textAlign: 'center' }}>
+                  <h1 className="balancePosition">
                     $
                     {balance}
                   </h1>
                 </div>
               </div>
-
-              <div
-                className="borderStyle"
-                style={{
-                  borderStyle: 'solid', borderWidth: '2px', position: 'relative', top: '-45px', left: '190px', width: '50px',
-                }}
-              />
-              <div style={{ position: 'relative', left: '270px', top: '-105px' }}>
+              <div className="borderStyle" />
+              <div className="incomeExpense">
                 <Typography id="transition-modal-title" variant="h6" component="h2" style={{ color: 'purple' }}>
                   Income / Expense
                 </Typography>
@@ -174,7 +161,7 @@ function AddTransaction() {
               {
               incexp !== '' ? (
                 <>
-                  <div style={{ position: 'relative', left: '270px', top: '-100px' }}>
+                  <div className="categoryStyle">
                     <Typography id="transition-modal-title" variant="h6" component="h2">Category</Typography>
                     <FormControl variant="standard" sx={{ m: 1, width: 230 }}>
                       <Select
@@ -188,13 +175,10 @@ function AddTransaction() {
                           incexp === 'Income' ? (
                             income.map((expenses:any) => (
                               <MenuItem key={expenses.name} value={expenses.name} style={{ height: '45px' }}>
-                                <div style={{ fontSize: '30px', position: 'absolute', marginTop: '-5px' }}>
+                                <div className="incomeImg">
                                   {expenses.icon}
                                 </div>
-                                <div style={{
-                                  fontSize: '20px', position: 'absolute', marginLeft: '40px',
-                                }}
-                                >
+                                <div className="incomeName">
                                   {expenses.name}
                                 </div>
                               </MenuItem>
@@ -205,13 +189,10 @@ function AddTransaction() {
                           incexp === 'Expense' ? (
                             expense.map((expenses:any) => (
                               <MenuItem key={expenses.name} value={expenses.name} style={{ height: '45px' }}>
-                                <div style={{ fontSize: '30px', position: 'absolute', marginTop: '-5px' }}>
+                                <div className="expenseImg">
                                   {expenses.icon}
                                 </div>
-                                <div style={{
-                                  fontSize: '20px', position: 'absolute', marginLeft: '40px',
-                                }}
-                                >
+                                <div className="expenseName">
                                   {expenses.name}
                                 </div>
                               </MenuItem>
@@ -222,29 +203,22 @@ function AddTransaction() {
                     </FormControl>
                   </div>
                   <div
-                    className="borderStyle"
-                    style={{
-                      borderStyle: 'solid', borderWidth: '2px', position: 'relative', top: '-130px', left: '540px', width: '50px',
-                    }}
+                    className="borderStylee"
                   />
-                  <div style={{
-                    position: 'relative', top: '-190px', left: '620px', width: '150px',
-                  }}
-                  >
+                  <div className="amountStyle">
                     <FormControl sx={{ m: 1 }} variant="standard">
                       <Typography id="transition-modal-title" variant="h6" component="h2">
                         Amount
                       </Typography>
-                      <Input className="no-spin" type="number" onChange={handleChangeAmount} style={{ fontSize: '25px', top: '-8px' }} value={amount} />
+                      <Input className="no-spin" type="number" onChange={handleChangeAmount} style={{ fontSize: '23px', top: '-5px' }} value={amount} />
                     </FormControl>
                   </div>
                 </>
               ) : ''
             }
             </div>
-            <div style={{
-              top: '-180px', left: '15px', width: '200px', position: 'relative',
-            }}
+            <div
+              className="dateAndDescription"
             >
               <div className="calender">
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -264,18 +238,12 @@ function AddTransaction() {
                 </LocalizationProvider>
               </div>
               <div
-                className="description"
-                style={{
-                  position: 'relative', left: '210px', top: '-56px', width: '700px',
-                }}
+                className="descriptionStyle"
               >
                 <TextField id="outlined-basic" label="Description" variant="outlined" onChange={handleDescription} />
               </div>
               <div
                 className="formBtn"
-                style={{
-                  position: 'relative', width: '45vw',
-                }}
               >
                 <Button variant="contained" color="success" style={{ left: '600px' }} onClick={handleAddTransaction}>Add transaction</Button>
                 <Button variant="contained" style={{ left: '330px' }} onClick={handleCloseBtn}>Cancel</Button>
