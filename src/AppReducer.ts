@@ -1,3 +1,8 @@
 import { combineReducers } from 'redux';
+import transactionsReducer from './components/transactions/transactionsReducer';
 
-export const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  transactionsReducer,
+});
+
+export default rootReducer;
