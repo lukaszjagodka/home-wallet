@@ -30,7 +30,7 @@ const TransactionsList = function TransactionsList() {
             />
           </Box>
           {
-            transArr.map((transactionObj) => (
+            transArr.forEach((transactionObj) => (
               <Transaction />
             ))
           }

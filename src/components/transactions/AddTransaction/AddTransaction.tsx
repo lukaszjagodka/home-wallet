@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -33,15 +34,17 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 
 import { format } from 'date-fns';
 
-import { TNewTransaction, TList } from '../../types/types';
-import capitalizeFirstLetter from '../../helpers/capitalizeFirstLetter';
+import { TNewTransaction, TList } from '../../../types/types';
+import capitalizeFirstLetter from '../../../helpers/capitalizeFirstLetter';
+import { addTransaction } from '../transactionsActions';
 
 function AddTransaction() {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [incexp, setIncexp] = useState<any>('');
+  const [incexp, setIncexp] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [balance, setBalance] = useState<number>(2732);
-  const [amount, setAmount] = useState<number>();
+  const [amount, setAmount] = useState<number | string>('');
   const [date, setDate] = React.useState<Date | null | string>(new Date());
   const [formatedDate, setFormatedDate] = React.useState<Date | null | string>();
   const [description, setDescription] = useState<string>('');
@@ -71,6 +74,12 @@ function AddTransaction() {
     setDescription(capitalizeDescription);
   };
 
+  const resetForm = () => {
+    setIncexp('');
+    setCategory('');
+    setAmount('');
+  };
+
   const handleAddTransaction = (event: any) => {
     if (incexp !== '' && category !== '' && amount !== undefined) {
       let newDateFormat;
@@ -79,13 +88,18 @@ function AddTransaction() {
       } else {
         newDateFormat = formatDateFns(date);
       }
-      const newTransaction: TNewTransaction = {
-        transactionType: incexp,
-        category,
-        amount,
-        newDateFormat,
-        description,
-      };
+      if (amount !== '') {
+        const newTransaction: TNewTransaction = {
+          transactionType: incexp,
+          category,
+          amount: Number(amount),
+          newDateFormat,
+          description,
+        };
+        dispatch(addTransaction(newTransaction));
+        handleClose();
+        resetForm();
+      }
     }
   };
 
