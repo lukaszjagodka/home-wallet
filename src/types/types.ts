@@ -1,4 +1,4 @@
-export type TCategory = {
+type TCategory = {
   name: string,
   icon: any
 }
@@ -12,3 +12,12 @@ export type TNewTransaction = {
   newDateFormat: Date | null | string,
   description: string,
 };
+
+export type TAction = {
+  type: string,
+  payload?: TNewTransaction
+}
+
+export type TTransactionsState = {
+  transactions: Array<TNewTransaction>
+}
