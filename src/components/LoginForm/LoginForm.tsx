@@ -21,6 +21,8 @@ const LoginForm = function LoginForm({ openList }: TProps) {
 
   const handleLogin = () => {
     console.log('send to server');
+    openList(false);
+    localStorage.setItem('selectedAccount', JSON.stringify('xxx'));
   };
 
   return (

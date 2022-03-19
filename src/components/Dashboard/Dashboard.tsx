@@ -4,7 +4,7 @@ import Charts from '../Charts/Charts';
 import Footer from '../Footer/Footer';
 import Menu from '../Menu/Menu';
 import Overview from '../Overview/Overview';
-import TransactionsList from '../TransactionsList/TransactionsList';
+import TransactionsList from '../transactions/TransactionsList/TransactionsList';
 import './Dashboard.css';
 
 class Dashboard extends Component {

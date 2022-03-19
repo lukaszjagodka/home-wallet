@@ -17,7 +17,7 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 export default function IconMenu() {
   return (
     <Paper sx={{
-      width: 220, height: '100%', maxWidth: '100%', borderRadius: 0,
+      top: 50, width: 220, height: '100vh', borderRadius: 0, position: 'fixed',
     }}
     >
       <MenuList>
