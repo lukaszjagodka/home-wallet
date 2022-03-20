@@ -12,3 +12,8 @@ export const addInflow = (payload: number) => ({
   type: 'ADD_INFLOW',
   payload,
 });
+
+export const addOutflow = (payload: number) => ({
+  type: 'ADD_OUTFLOW',
+  payload,
+});

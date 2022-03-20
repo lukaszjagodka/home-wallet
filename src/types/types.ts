@@ -20,7 +20,7 @@ export type TTransactionAction = {
 
 export type TAccountAction = {
   type: string,
-  payload?: number
+  payload: number
 }
 
 export type TTransactions = {

@@ -22,6 +22,11 @@ const accountReducer = (state: TAccount = initialState, action: TAccountAction) 
         ...state,
         inflow: state.inflow + action.payload,
       };
+    case 'ADD_OUTFLOW':
+      return {
+        ...state,
+        outflow: state.outflow + action.payload,
+      };
     default:
       return state;
   }
