@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import './Overview.css';
 
 import Collapse from '@mui/material/Collapse';
+import { useSelector } from 'react-redux';
+import { TAccountOnList } from '../../types/types';
 
 const Overview = function Overview() {
+  const { inflow, outflow } = useSelector((state: TAccountOnList) => ({
+    inflow: state.account.inflow,
+    outflow: state.account.outflow,
+  }));
   const [checked, setChecked] = useState(false);
-  const [income, setIncome] = useState<number>(3256);
-  const [outflow, setOutflow] = useState<number>(524);
-  const balance = income - outflow;
+  const balance = inflow - outflow;
 
   setTimeout(() => {
     setChecked(true);
@@ -26,7 +30,7 @@ const Overview = function Overview() {
               <h2 className="income">Inflow</h2>
               <h1 className="incomeCounter">
                 $
-                {income}
+                {inflow}
               </h1>
             </div>
             <div className="outflowMain">
