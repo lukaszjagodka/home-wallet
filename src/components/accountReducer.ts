@@ -1,8 +1,8 @@
 import { TAccount, TAccountAction } from '../types/types';
 
 const initialState = {
-  inflow: 0,
-  outflow: 0,
+  inflow: 3156,
+  outflow: 606,
 };
 
 const accountReducer = (state: TAccount = initialState, action: TAccountAction) => {
@@ -16,6 +16,11 @@ const accountReducer = (state: TAccount = initialState, action: TAccountAction) 
       return {
         ...state,
         outflow: action.payload,
+      };
+    case 'ADD_INFLOW':
+      return {
+        ...state,
+        inflow: state.inflow + action.payload,
       };
     default:
       return state;

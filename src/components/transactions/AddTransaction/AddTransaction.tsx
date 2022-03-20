@@ -37,6 +37,7 @@ import { format } from 'date-fns';
 import { TNewTransaction, TList } from '../../../types/types';
 import capitalizeFirstLetter from '../../../helpers/capitalizeFirstLetter';
 import { addTransaction } from '../transactionsActions';
+import { addInflow } from '../../accountActions';
 
 function AddTransaction() {
   const dispatch = useDispatch();
@@ -98,6 +99,7 @@ function AddTransaction() {
           description,
         };
         dispatch(addTransaction(newTransaction));
+        dispatch(addInflow(Number(amount)));
         handleClose();
         resetForm();
       }
