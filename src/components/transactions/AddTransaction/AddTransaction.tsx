@@ -138,7 +138,7 @@ function AddTransaction() {
                   <Typography id="transition-modal-title" variant="h6" component="h2" style={{ color: 'rgba(0, 89, 255, 0.678)' }}>
                     Actual balance
                   </Typography>
-                  <h1 className="balancePosition">
+                  <h1 className="balancePosition" style={{ color: balance > 1 ? 'green' : 'red' }}>
                     $
                     {balance}
                   </h1>
@@ -146,7 +146,7 @@ function AddTransaction() {
               </div>
               <div className="borderStyle" />
               <div className="incomeExpense">
-                <Typography id="transition-modal-title" variant="h6" component="h2" style={{ color: 'purple' }}>
+                <Typography id="transition-modal-title" variant="h6" component="h2" style={{ color: 'rgba(0, 89, 255, 0.678)', marginLeft: '40px' }}>
                   Income / Expense
                 </Typography>
                 <FormControl variant="standard" sx={{ m: 1, width: 230 }}>
@@ -176,7 +176,7 @@ function AddTransaction() {
               incexp !== '' ? (
                 <>
                   <div className="categoryStyle">
-                    <Typography id="transition-modal-title" variant="h6" component="h2">Category</Typography>
+                    <Typography id="transition-modal-title" variant="h6" component="h2" style={{ color: 'rgba(0, 89, 255, 0.678)', marginLeft: '80px' }}>Category</Typography>
                     <FormControl variant="standard" sx={{ m: 1, width: 230 }}>
                       <Select
                         labelId="demo-simple-select-label"
@@ -221,10 +221,18 @@ function AddTransaction() {
                   />
                   <div className="amountStyle">
                     <FormControl sx={{ m: 1 }} variant="standard">
-                      <Typography id="transition-modal-title" variant="h6" component="h2">
+                      <Typography id="transition-modal-title" variant="h6" component="h2" style={{ color: 'rgba(0, 89, 255, 0.678)' }}>
                         Amount
                       </Typography>
-                      <Input className="no-spin" type="number" onChange={handleChangeAmount} style={{ fontSize: '23px', top: '-5px' }} value={amount} />
+                      <Input
+                        className="no-spin"
+                        type="number"
+                        onChange={handleChangeAmount}
+                        style={{
+                          fontSize: '23px', top: '-5px', fontWeight: 'bold', color: incexp === 'Income' ? 'green' : 'rgba(255, 0, 0, 0.678)',
+                        }}
+                        value={amount}
+                      />
                     </FormControl>
                   </div>
                 </>
