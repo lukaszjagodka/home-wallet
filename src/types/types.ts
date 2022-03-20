@@ -13,11 +13,34 @@ export type TNewTransaction = {
   description: string,
 };
 
-export type TAction = {
+export type TTransactionAction = {
   type: string,
   payload?: TNewTransaction
 }
 
-export type TTransactionsState = {
+export type TAccountAction = {
+  type: string,
+  payload?: number
+}
+
+export type TTransactions = {
   transactions: Array<TNewTransaction>
+}
+
+export type TAccount = {
+  inflow: number,
+  outflow: number
+}
+
+export type TTransactionsOnList = {
+  transactions: {
+    transactions: Array<TNewTransaction>
+  }
+}
+
+export type TAccountOnList = {
+  account: {
+    inflow: number,
+    outflow: number
+  }
 }
