@@ -78,6 +78,7 @@ function AddTransaction() {
     setIncexp('');
     setCategory('');
     setAmount('');
+    setDescription('');
   };
 
   const handleAddTransaction = (event: any) => {
