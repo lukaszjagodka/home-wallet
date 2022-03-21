@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -41,10 +41,14 @@ import { addInflow, addOutflow } from '../../accountActions';
 
 function AddTransaction() {
   const dispatch = useDispatch();
+  const { inflow, outflow } = useSelector((state: any) => ({
+    inflow: state.account.inflow,
+    outflow: state.account.outflow,
+  }));
   const [open, setOpen] = useState(false);
   const [incexp, setIncexp] = useState<string>('');
   const [category, setCategory] = useState<string>('');
-  const [balance, setBalance] = useState<number>(2732);
+  const [balance, setBalance] = useState<number>(inflow - outflow);
   const [amount, setAmount] = useState<number | string>('');
   const [date, setDate] = React.useState<Date | null | string>(new Date());
   const [formatedDate, setFormatedDate] = React.useState<Date | null | string>();
@@ -110,7 +114,11 @@ function AddTransaction() {
     }
   };
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+    const resetBalance = inflow - outflow;
+    setBalance(resetBalance);
+  };
   const handleClose = () => setOpen(false);
 
   return (
