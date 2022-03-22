@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './Menu.css';
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
 import MenuList from '@mui/material/MenuList';
@@ -16,9 +17,8 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 
 export default function IconMenu() {
   return (
-    <Paper sx={{
-      top: 50, width: 220, height: '100vh', borderRadius: 0, position: 'fixed',
-    }}
+    <Paper
+      className="paper-container"
     >
       <MenuList>
         <MenuItem>

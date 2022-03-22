@@ -1,24 +1,14 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import AddTransaction from '../transactions/AddTransaction/AddTransaction';
 import './Navbar.css';
 
-const Navbar = function Navbar() {
-  const handleLogout = () => {
-    localStorage.removeItem('selectedAccount');
-    window.location.href = '/';
-  };
-
+function Navbar() {
   return (
-    <div className="navbarContainer">
-      <div className="navbarName">Home Wallet</div>
+    <div className="navbar-container">
+      <div className="navbar-name">Home Wallet</div>
       <AddTransaction />
-      <div className="logoutBtn">
-        <button type="button" onClick={() => handleLogout()}>Logout</button>
-      </div>
     </div>
   );
-};
+}
 
 export default Navbar;

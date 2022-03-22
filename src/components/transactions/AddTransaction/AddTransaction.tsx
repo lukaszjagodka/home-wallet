@@ -87,31 +87,30 @@ function AddTransaction() {
   };
 
   const handleAddTransaction = (event: any) => {
-    if (incexp !== '' && category !== '' && amount !== undefined) {
-      let newDateFormat;
-      if (formatedDate !== undefined) {
-        newDateFormat = formatedDate;
-      } else {
-        newDateFormat = formatDateFns(date);
-      }
-      if (amount !== '') {
-        const newTransaction: TNewTransaction = {
-          transactionType: incexp,
-          category,
-          amount: Number(amount),
-          newDateFormat,
-          description,
-        };
-        dispatch(addTransaction(newTransaction));
-        if (incexp === 'Income') {
-          dispatch(addInflow(Number(amount)));
-        } else {
-          dispatch(addOutflow(Number(amount)));
-        }
-        handleClose();
-        resetForm();
-      }
+    if (incexp === '' || category === '' || amount === undefined || amount === '') return;
+
+    let newDateFormat;
+    if (formatedDate !== undefined) {
+      newDateFormat = formatedDate;
+    } else {
+      newDateFormat = formatDateFns(date);
     }
+
+    const newTransaction: TNewTransaction = {
+      transactionType: incexp,
+      category,
+      amount: Number(amount),
+      newDateFormat,
+      description,
+    };
+    dispatch(addTransaction(newTransaction));
+    if (incexp === 'Income') {
+      dispatch(addInflow(Number(amount)));
+    } else {
+      dispatch(addOutflow(Number(amount)));
+    }
+    handleClose();
+    resetForm();
   };
 
   const handleOpen = () => {
@@ -119,11 +118,14 @@ function AddTransaction() {
     const resetBalance = inflow - outflow;
     setBalance(resetBalance);
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    resetForm();
+  };
 
   return (
     <div>
-      <div className="addTransactionBtn">
+      <div className="add-transaction-btn">
         <Button onClick={handleOpen}>Add Transaction</Button>
       </div>
       <Modal
@@ -139,32 +141,31 @@ function AddTransaction() {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <div className="addTransactionPanel">
-              <div className="addTransactionBar">
-                <h1 className="barsName">
+            <div className="add-transaction-panel">
+              <div className="add-transaction-bar">
+                <h1 className="bars-name">
                   Add transaction
                 </h1>
               </div>
-              <div style={{
-                position: 'relative', width: 200,
-              }}
+              <div
+                className="actual-balance-position"
               >
-                <div style={{ textAlign: 'center' }}>
+                <div className="text-center">
                   <Typography id="transition-modal-title" variant="h6" component="h2" style={{ color: 'rgba(0, 89, 255, 0.678)' }}>
                     Actual balance
                   </Typography>
-                  <h1 className="balancePosition" style={{ color: balance > 1 ? 'green' : 'red' }}>
+                  <h1 className="balance-position" style={{ color: balance > 1 ? 'green' : 'red' }}>
                     $
                     {balance}
                   </h1>
                 </div>
               </div>
-              <div className="borderStyle" />
-              <div className="incomeExpense">
-                <Typography id="transition-modal-title" variant="h6" component="h2" style={{ color: 'rgba(0, 89, 255, 0.678)', marginLeft: '40px' }}>
+              <div className="border-style" />
+              <div className="income-expense">
+                <Typography className="bdg-modal-title" id="bdg-modal-title" variant="h6" component="h2">
                   Income / Expense
                 </Typography>
-                <FormControl variant="standard" sx={{ m: 1, width: 230 }}>
+                <FormControl className="bdg-form-control" variant="standard" sx={{ m: 1 }}>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -174,11 +175,8 @@ function AddTransaction() {
                   >
                     {
                   choice.map((c) => (
-                    <MenuItem key={c} value={c} style={{ height: '45px' }}>
-                      <div style={{
-                        fontSize: '20px', position: 'absolute', marginLeft: '40px',
-                      }}
-                      >
+                    <MenuItem key={c} value={c} className="choice-menu-item">
+                      <div className="choice-menu-item-position">
                         {c}
                       </div>
                     </MenuItem>
@@ -190,8 +188,8 @@ function AddTransaction() {
               {
               incexp !== '' ? (
                 <>
-                  <div className="categoryStyle">
-                    <Typography id="transition-modal-title" variant="h6" component="h2" style={{ color: 'rgba(0, 89, 255, 0.678)', marginLeft: '80px' }}>Category</Typography>
+                  <div className="category-style">
+                    <Typography id="category-modal-title" variant="h6" component="h2">Category</Typography>
                     <FormControl variant="standard" sx={{ m: 1, width: 230 }}>
                       <Select
                         labelId="demo-simple-select-label"
@@ -202,10 +200,10 @@ function AddTransaction() {
                       >
                         {
                           incexp === 'Income' ? (
-                            income.map((expenses:any) => (
+                            income.map((expenses) => (
                               <MenuItem key={expenses.name} value={expenses.name} style={{ height: '45px' }}>
-                                <div className="incomeImg">
-                                  {expenses.icon}
+                                <div className="income-image">
+                                  {expenses.icon({})}
                                 </div>
                                 <div className="incomeName">
                                   {expenses.name}
@@ -216,12 +214,12 @@ function AddTransaction() {
                         }
                         {
                           incexp === 'Expense' ? (
-                            expense.map((expenses:any) => (
+                            expense.map((expenses) => (
                               <MenuItem key={expenses.name} value={expenses.name} style={{ height: '45px' }}>
-                                <div className="expenseImg">
-                                  {expenses.icon}
+                                <div className="expense-image">
+                                  {expenses.icon({})}
                                 </div>
-                                <div className="expenseName">
+                                <div className="expense-name">
                                   {expenses.name}
                                 </div>
                               </MenuItem>
@@ -232,19 +230,19 @@ function AddTransaction() {
                     </FormControl>
                   </div>
                   <div
-                    className="borderStylee"
+                    className="border-stylee"
                   />
-                  <div className="amountStyle">
+                  <div className="amount-style">
                     <FormControl sx={{ m: 1 }} variant="standard">
-                      <Typography id="transition-modal-title" variant="h6" component="h2" style={{ color: 'rgba(0, 89, 255, 0.678)' }}>
+                      <Typography className="amount-modal-title" id="amount-modal-title" variant="h6" component="h2">
                         Amount
                       </Typography>
                       <Input
-                        className="no-spin"
+                        className="no-spin input-amount"
                         type="number"
                         onChange={handleChangeAmount}
                         style={{
-                          fontSize: '23px', top: '-5px', fontWeight: 'bold', color: incexp === 'Income' ? 'green' : 'rgba(255, 0, 0, 0.678)',
+                          color: incexp === 'Income' ? 'green' : 'rgba(255, 0, 0, 0.678)',
                         }}
                         value={amount}
                       />
@@ -255,7 +253,7 @@ function AddTransaction() {
             }
             </div>
             <div
-              className="dateAndDescription"
+              className="date-and-description"
             >
               <div className="calender">
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -275,15 +273,15 @@ function AddTransaction() {
                 </LocalizationProvider>
               </div>
               <div
-                className="descriptionStyle"
+                className="description-style"
               >
                 <TextField id="outlined-basic" label="Description" variant="outlined" onChange={handleDescription} />
               </div>
               <div
-                className="formBtn"
+                className="form-btn"
               >
-                <Button variant="contained" color="success" style={{ left: '600px' }} onClick={handleAddTransaction}>Add transaction</Button>
-                <Button variant="contained" style={{ left: '330px' }} onClick={handleCloseBtn}>Cancel</Button>
+                <Button className="submit-btn" variant="contained" color="success" onClick={handleAddTransaction}>Add transaction</Button>
+                <Button className="cancel-btn" variant="contained" onClick={handleCloseBtn}>Cancel</Button>
               </div>
             </div>
           </Box>
@@ -313,25 +311,25 @@ const style = {
 const choice = ['Income', 'Expense'];
 
 const income: TList = [
-  { name: 'Collect Interest', icon: <GiReceiveMoney /> },
-  { name: 'Salary', icon: <GiMoneyStack /> },
-  { name: 'Other Income', icon: <GiPayMoney /> },
-  { name: 'Incoming Transfer', icon: <BiTransfer /> },
+  { name: 'Collect Interest', icon: () => <GiReceiveMoney /> },
+  { name: 'Salary', icon: () => <GiMoneyStack /> },
+  { name: 'Other Income', icon: () => <GiPayMoney /> },
+  { name: 'Incoming Transfer', icon: () => <BiTransfer /> },
 ];
 
 const expense: TList = [
-  { name: 'Food & Beverage', icon: <IoFastFoodSharp /> },
-  { name: 'Transportation', icon: <IoBusOutline /> },
-  { name: 'Rentals', icon: <AiFillHome /> },
-  { name: 'Water Bill', icon: <BsWater /> },
-  { name: 'Phone Bill', icon: <AiFillPhone /> },
-  { name: 'Electricity Bill', icon: <FcElectricity /> },
-  { name: 'Gas Bill', icon: <GiGasStove /> },
-  { name: 'Television Bill', icon: <IoTvSharp /> },
-  { name: 'Internet Bill', icon: <FaInternetExplorer /> },
-  { name: 'Other Utility Bills', icon: <RiBillFill /> },
-  { name: 'Insurances', icon: <GiScarecrow /> },
-  { name: 'Education', icon: <MdCastForEducation /> },
+  { name: 'Food & Beverage', icon: () => <IoFastFoodSharp /> },
+  { name: 'Transportation', icon: () => <IoBusOutline /> },
+  { name: 'Rentals', icon: () => <AiFillHome /> },
+  { name: 'Water Bill', icon: () => <BsWater /> },
+  { name: 'Phone Bill', icon: () => <AiFillPhone /> },
+  { name: 'Electricity Bill', icon: () => <FcElectricity /> },
+  { name: 'Gas Bill', icon: () => <GiGasStove /> },
+  { name: 'Television Bill', icon: () => <IoTvSharp /> },
+  { name: 'Internet Bill', icon: () => <FaInternetExplorer /> },
+  { name: 'Other Utility Bills', icon: () => <RiBillFill /> },
+  { name: 'Insurances', icon: () => <GiScarecrow /> },
+  { name: 'Education', icon: () => <MdCastForEducation /> },
 ];
 
 export default AddTransaction;

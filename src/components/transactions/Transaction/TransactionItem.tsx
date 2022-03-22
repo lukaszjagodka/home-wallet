@@ -27,14 +27,14 @@ const Transaction = function Transaction(props: TProps) {
   const foundIncome = income.find((element) => element.name === params.category);
 
   return (
-    <div className="singleTransaction">
-      <div className={`leftBar ${transType === 'Income' ? 'a1' : 'a2'}`} style={{ backgroundColor: transType === 'Income' ? 'yellowgreen' : '#ff1b41' }} />
+    <div className="single-transaction">
+      <div className="left-bar" style={{ backgroundColor: transType === 'Income' ? 'yellowgreen' : '#ff1b41' }} />
       <div className="img">
         {foundExpense?.icon({})}
         {foundIncome?.icon({})}
       </div>
       <div
-        className="leftSide"
+        className="left-side"
       >
         <div className="theme">
           <h2>{params.category}</h2>
@@ -45,12 +45,12 @@ const Transaction = function Transaction(props: TProps) {
 
       </div>
       <div
-        className="rightSide"
+        className="right-side"
       >
         <div className="date">
           <h3>{params.newDateFormat}</h3>
         </div>
-        <div className="amountTr" style={{ color: transType === 'Income' ? 'yellowgreen' : '#ff1b41' }}>
+        <div className="amount-tr" style={{ color: transType === 'Income' ? 'yellowgreen' : '#ff1b41' }}>
           <h1>
             $
             {params.amount}

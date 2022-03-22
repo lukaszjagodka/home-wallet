@@ -1,6 +1,8 @@
+import { IconType } from 'react-icons/lib';
+
 type TCategory = {
   name: string,
-  icon: any
+  icon: IconType,
 }
 
 export type TList = Array<TCategory>

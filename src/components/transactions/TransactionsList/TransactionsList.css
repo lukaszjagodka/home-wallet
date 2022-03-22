@@ -1,7 +1,12 @@
-.transactionsComponent {
+.transactions-component {
   width: 700px;
   padding-bottom: 5px;
   background-color: rgb(255, 255, 255);
   margin: 20px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.box-transactions-component {
+  height: 35px;
+  background-color: rgba(244, 245, 245, 0.835);
 }
