@@ -52,7 +52,7 @@ function AddTransaction() {
     outflow: account.outflow,
   }));
   const [open, setOpen] = useState(false);
-  const [incexp, setIncexp] = useState<string>('');
+  const [budget, setBudget] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [balance, setBalance] = useState<number>(inflow - outflow);
   const [amount, setAmount] = useState<number | string>('');
@@ -65,7 +65,7 @@ function AddTransaction() {
   };
 
   const handleChangeIncexp = (event: any) => {
-    setIncexp(event.target.value);
+    setBudget(event.target.value);
     setCategory('');
   };
 
@@ -86,26 +86,26 @@ function AddTransaction() {
   };
 
   const resetForm = () => {
-    setIncexp('');
+    setBudget('');
     setCategory('');
     setAmount('');
     setDescription('');
   };
 
   const handleAddTransaction = (event: any) => {
-    if (incexp === '' || category === '' || amount === undefined || amount === '') return;
+    if (budget === '' || category === '' || amount === undefined || amount === '') return;
 
     const newDateFormat = formatedDate !== undefined ? formatedDate : formatDateFns(date);
 
     const newTransaction: TNewTransaction = {
-      transactionType: incexp,
+      transactionType: budget,
       category,
       amount: Number(amount),
       newDateFormat,
       description,
     };
     dispatch(addTransaction(newTransaction));
-    if (incexp === BudgetTypeEnum.Inflow) {
+    if (budget === BudgetTypeEnum.Inflow) {
       dispatch(addInflow(Number(amount)));
     } else {
       dispatch(addOutflow(Number(amount)));
@@ -170,7 +170,7 @@ function AddTransaction() {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={incexp}
+                    value={budget}
                     onChange={handleChangeIncexp}
                     label="Category"
                   >
@@ -187,7 +187,7 @@ function AddTransaction() {
                 </FormControl>
               </div>
               {
-              incexp !== '' ? (
+              budget !== '' ? (
                 <>
                   <div className="category-style">
                     <Typography id="category-modal-title" variant="h6" component="h2">Category</Typography>
@@ -200,7 +200,7 @@ function AddTransaction() {
                         label="Category"
                       >
                         {
-                          incexp === BudgetTypeEnum.Inflow ? (
+                          budget === BudgetTypeEnum.Inflow ? (
                             income.map((expenses) => (
                               <MenuItem key={expenses.name} value={expenses.name} style={{ height: '45px' }}>
                                 <div className="income-image">
@@ -214,7 +214,7 @@ function AddTransaction() {
                           ) : ''
                         }
                         {
-                          incexp === BudgetTypeEnum.Outflow ? (
+                          budget === BudgetTypeEnum.Outflow ? (
                             expense.map((expenses) => (
                               <MenuItem key={expenses.name} value={expenses.name} style={{ height: '45px' }}>
                                 <div className="expense-image">
@@ -243,7 +243,7 @@ function AddTransaction() {
                         type="number"
                         onChange={handleChangeAmount}
                         style={{
-                          color: incexp === BudgetTypeEnum.Inflow ? 'green' : 'rgba(255, 0, 0, 0.678)',
+                          color: budget === BudgetTypeEnum.Inflow ? 'green' : 'rgba(255, 0, 0, 0.678)',
                         }}
                         value={amount}
                       />
