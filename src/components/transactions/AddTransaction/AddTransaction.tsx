@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
@@ -39,11 +40,16 @@ import capitalizeFirstLetter from '../../../helpers/capitalizeFirstLetter';
 import { addTransaction } from '../transactionsActions';
 import { addInflow, addOutflow } from '../../accountActions';
 
+enum BudgetTypeEnum {
+  Inflow = 'Inflow',
+  Outflow = 'Outflow'
+}
+
 function AddTransaction() {
   const dispatch = useDispatch();
-  const { inflow, outflow } = useSelector((state: any) => ({
-    inflow: state.account.inflow,
-    outflow: state.account.outflow,
+  const { inflow, outflow } = useSelector(({ account }: any) => ({
+    inflow: account.inflow,
+    outflow: account.outflow,
   }));
   const [open, setOpen] = useState(false);
   const [incexp, setIncexp] = useState<string>('');
@@ -68,8 +74,8 @@ function AddTransaction() {
   };
 
   const handleChangeAmount = (event: any) => {
-    const re = /^[0-9\b]+$/;
-    if (event.target.value === '' || re.test(event.target.value)) {
+    const numberRegex = /^[0-9\b]+$/;
+    if (event.target.value === '' || numberRegex.test(event.target.value)) {
       setAmount(event.target.value);
     }
   };
@@ -89,12 +95,7 @@ function AddTransaction() {
   const handleAddTransaction = (event: any) => {
     if (incexp === '' || category === '' || amount === undefined || amount === '') return;
 
-    let newDateFormat;
-    if (formatedDate !== undefined) {
-      newDateFormat = formatedDate;
-    } else {
-      newDateFormat = formatDateFns(date);
-    }
+    const newDateFormat = formatedDate !== undefined ? formatedDate : formatDateFns(date);
 
     const newTransaction: TNewTransaction = {
       transactionType: incexp,
@@ -104,7 +105,7 @@ function AddTransaction() {
       description,
     };
     dispatch(addTransaction(newTransaction));
-    if (incexp === 'Income') {
+    if (incexp === BudgetTypeEnum.Inflow) {
       dispatch(addInflow(Number(amount)));
     } else {
       dispatch(addOutflow(Number(amount)));
@@ -199,7 +200,7 @@ function AddTransaction() {
                         label="Category"
                       >
                         {
-                          incexp === 'Income' ? (
+                          incexp === BudgetTypeEnum.Inflow ? (
                             income.map((expenses) => (
                               <MenuItem key={expenses.name} value={expenses.name} style={{ height: '45px' }}>
                                 <div className="income-image">
@@ -213,7 +214,7 @@ function AddTransaction() {
                           ) : ''
                         }
                         {
-                          incexp === 'Expense' ? (
+                          incexp === BudgetTypeEnum.Outflow ? (
                             expense.map((expenses) => (
                               <MenuItem key={expenses.name} value={expenses.name} style={{ height: '45px' }}>
                                 <div className="expense-image">
@@ -242,7 +243,7 @@ function AddTransaction() {
                         type="number"
                         onChange={handleChangeAmount}
                         style={{
-                          color: incexp === 'Income' ? 'green' : 'rgba(255, 0, 0, 0.678)',
+                          color: incexp === BudgetTypeEnum.Inflow ? 'green' : 'rgba(255, 0, 0, 0.678)',
                         }}
                         value={amount}
                       />
