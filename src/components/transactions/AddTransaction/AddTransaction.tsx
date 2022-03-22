@@ -1,7 +1,7 @@
-/* eslint-disable no-shadow */
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-nested-ternary */
-import React, { useState } from 'react';
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-shadow */
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
@@ -40,9 +40,31 @@ import capitalizeFirstLetter from '../../../helpers/capitalizeFirstLetter';
 import { addTransaction } from '../transactionsActions';
 import { addInflow, addOutflow } from '../../accountActions';
 
+const income: TList = [
+  { name: 'Collect Interest', icon: () => <GiReceiveMoney /> },
+  { name: 'Salary', icon: () => <GiMoneyStack /> },
+  { name: 'Other Income', icon: () => <GiPayMoney /> },
+  { name: 'Incoming Transfer', icon: () => <BiTransfer /> },
+];
+
+const expense: TList = [
+  { name: 'Food & Beverage', icon: () => <IoFastFoodSharp /> },
+  { name: 'Transportation', icon: () => <IoBusOutline /> },
+  { name: 'Rentals', icon: () => <AiFillHome /> },
+  { name: 'Water Bill', icon: () => <BsWater /> },
+  { name: 'Phone Bill', icon: () => <AiFillPhone /> },
+  { name: 'Electricity Bill', icon: () => <FcElectricity /> },
+  { name: 'Gas Bill', icon: () => <GiGasStove /> },
+  { name: 'Television Bill', icon: () => <IoTvSharp /> },
+  { name: 'Internet Bill', icon: () => <FaInternetExplorer /> },
+  { name: 'Other Utility Bills', icon: () => <RiBillFill /> },
+  { name: 'Insurances', icon: () => <GiScarecrow /> },
+  { name: 'Education', icon: () => <MdCastForEducation /> },
+];
+
 enum BudgetTypeEnum {
-  Inflow = 'Inflow',
-  Outflow = 'Outflow'
+  Income = 'Income',
+  Expense = 'Expense'
 }
 
 function AddTransaction() {
@@ -56,15 +78,20 @@ function AddTransaction() {
   const [category, setCategory] = useState<string>('');
   const [balance, setBalance] = useState<number>(inflow - outflow);
   const [amount, setAmount] = useState<number | string>('');
-  const [date, setDate] = React.useState<Date | null | string>(new Date());
-  const [formatedDate, setFormatedDate] = React.useState<Date | null | string>();
+  const [date, setDate] = useState<Date | null | string>(new Date());
+  const [formatedDate, setFormatedDate] = useState<Date | null | string>();
+  const [burgetType, setBurgetType] = useState<TList>();
   const [description, setDescription] = useState<string>('');
+
+  useEffect(() => {
+    budget === BudgetTypeEnum.Income ? setBurgetType(income) : setBurgetType(expense);
+  }, [budget]);
 
   const handleChangeCategory = (event: any) => {
     setCategory(event.target.value);
   };
 
-  const handleChangeIncexp = (event: any) => {
+  const handleChangeBudget = (event: any) => {
     setBudget(event.target.value);
     setCategory('');
   };
@@ -105,7 +132,7 @@ function AddTransaction() {
       description,
     };
     dispatch(addTransaction(newTransaction));
-    if (budget === BudgetTypeEnum.Inflow) {
+    if (budget === BudgetTypeEnum.Income) {
       dispatch(addInflow(Number(amount)));
     } else {
       dispatch(addOutflow(Number(amount)));
@@ -171,7 +198,7 @@ function AddTransaction() {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={budget}
-                    onChange={handleChangeIncexp}
+                    onChange={handleChangeBudget}
                     label="Category"
                   >
                     {
@@ -187,7 +214,7 @@ function AddTransaction() {
                 </FormControl>
               </div>
               {
-              budget !== '' ? (
+              budget !== '' && (
                 <>
                   <div className="category-style">
                     <Typography id="category-modal-title" variant="h6" component="h2">Category</Typography>
@@ -200,32 +227,18 @@ function AddTransaction() {
                         label="Category"
                       >
                         {
-                          budget === BudgetTypeEnum.Inflow ? (
-                            income.map((expenses) => (
-                              <MenuItem key={expenses.name} value={expenses.name} style={{ height: '45px' }}>
+                          burgetType !== undefined && (
+                            burgetType.map((obj) => (
+                              <MenuItem key={obj.name} value={obj.name} style={{ height: '45px' }}>
                                 <div className="income-image">
-                                  {expenses.icon({})}
+                                  {obj.icon({})}
                                 </div>
                                 <div className="incomeName">
-                                  {expenses.name}
+                                  {obj.name}
                                 </div>
                               </MenuItem>
                             ))
-                          ) : ''
-                        }
-                        {
-                          budget === BudgetTypeEnum.Outflow ? (
-                            expense.map((expenses) => (
-                              <MenuItem key={expenses.name} value={expenses.name} style={{ height: '45px' }}>
-                                <div className="expense-image">
-                                  {expenses.icon({})}
-                                </div>
-                                <div className="expense-name">
-                                  {expenses.name}
-                                </div>
-                              </MenuItem>
-                            ))
-                          ) : ''
+                          )
                         }
                       </Select>
                     </FormControl>
@@ -239,18 +252,18 @@ function AddTransaction() {
                         Amount
                       </Typography>
                       <Input
-                        className="no-spin input-amount"
+                        className="input-amount"
                         type="number"
                         onChange={handleChangeAmount}
                         style={{
-                          color: budget === BudgetTypeEnum.Inflow ? 'green' : 'rgba(255, 0, 0, 0.678)',
+                          color: budget === BudgetTypeEnum.Income ? 'green' : 'rgba(255, 0, 0, 0.678)', fontSize: '1.5rem',
                         }}
                         value={amount}
                       />
                     </FormControl>
                   </div>
                 </>
-              ) : ''
+              )
             }
             </div>
             <div
@@ -297,7 +310,7 @@ function formatDateFns(date: any) {
 }
 
 const style = {
-  position: 'absolute' as 'absolute',
+  position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
@@ -310,27 +323,5 @@ const style = {
 };
 
 const choice = ['Income', 'Expense'];
-
-const income: TList = [
-  { name: 'Collect Interest', icon: () => <GiReceiveMoney /> },
-  { name: 'Salary', icon: () => <GiMoneyStack /> },
-  { name: 'Other Income', icon: () => <GiPayMoney /> },
-  { name: 'Incoming Transfer', icon: () => <BiTransfer /> },
-];
-
-const expense: TList = [
-  { name: 'Food & Beverage', icon: () => <IoFastFoodSharp /> },
-  { name: 'Transportation', icon: () => <IoBusOutline /> },
-  { name: 'Rentals', icon: () => <AiFillHome /> },
-  { name: 'Water Bill', icon: () => <BsWater /> },
-  { name: 'Phone Bill', icon: () => <AiFillPhone /> },
-  { name: 'Electricity Bill', icon: () => <FcElectricity /> },
-  { name: 'Gas Bill', icon: () => <GiGasStove /> },
-  { name: 'Television Bill', icon: () => <IoTvSharp /> },
-  { name: 'Internet Bill', icon: () => <FaInternetExplorer /> },
-  { name: 'Other Utility Bills', icon: () => <RiBillFill /> },
-  { name: 'Insurances', icon: () => <GiScarecrow /> },
-  { name: 'Education', icon: () => <MdCastForEducation /> },
-];
 
 export default AddTransaction;
