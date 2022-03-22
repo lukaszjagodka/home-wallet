@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-prop-types */
 import React from 'react';
-import './Transaction.css';
+import './TransactionItem.css';
 
 import { IoFastFoodSharp, IoBusOutline, IoTvSharp } from 'react-icons/io5';
 import { AiFillHome, AiFillPhone } from 'react-icons/ai';
@@ -28,10 +28,10 @@ const Transaction = function Transaction(props: TProps) {
 
   return (
     <div className="singleTransaction">
-      <div className="leftBar" style={{ backgroundColor: transType === 'Income' ? 'yellowgreen' : '#ff1b41' }} />
+      <div className={`leftBar ${transType === 'Income' ? 'a1' : 'a2'}`} style={{ backgroundColor: transType === 'Income' ? 'yellowgreen' : '#ff1b41' }} />
       <div className="img">
-        {foundExpense?.icon}
-        {foundIncome?.icon}
+        {foundExpense?.icon({})}
+        {foundIncome?.icon({})}
       </div>
       <div
         className="leftSide"
@@ -62,25 +62,25 @@ const Transaction = function Transaction(props: TProps) {
 };
 
 const expense: TList = [
-  { name: 'Food & Beverage', icon: <IoFastFoodSharp /> },
-  { name: 'Transportation', icon: <IoBusOutline /> },
-  { name: 'Rentals', icon: <AiFillHome /> },
-  { name: 'Water Bill', icon: <BsWater /> },
-  { name: 'Phone Bill', icon: <AiFillPhone /> },
-  { name: 'Electricity Bill', icon: <FcElectricity /> },
-  { name: 'Gas Bill', icon: <GiGasStove /> },
-  { name: 'Television Bill', icon: <IoTvSharp /> },
-  { name: 'Internet Bill', icon: <FaInternetExplorer /> },
-  { name: 'Other Utility Bills', icon: <RiBillFill /> },
-  { name: 'Insurances', icon: <GiScarecrow /> },
-  { name: 'Education', icon: <MdCastForEducation /> },
+  { name: 'Food & Beverage', icon: () => <IoFastFoodSharp /> },
+  { name: 'Transportation', icon: () => <IoBusOutline /> },
+  { name: 'Rentals', icon: () => <AiFillHome /> },
+  { name: 'Water Bill', icon: () => <BsWater /> },
+  { name: 'Phone Bill', icon: () => <AiFillPhone /> },
+  { name: 'Electricity Bill', icon: () => <FcElectricity /> },
+  { name: 'Gas Bill', icon: () => <GiGasStove /> },
+  { name: 'Television Bill', icon: () => <IoTvSharp /> },
+  { name: 'Internet Bill', icon: () => <FaInternetExplorer /> },
+  { name: 'Other Utility Bills', icon: () => <RiBillFill /> },
+  { name: 'Insurances', icon: () => <GiScarecrow /> },
+  { name: 'Education', icon: () => <MdCastForEducation /> },
 ];
 
 const income: TList = [
-  { name: 'Collect Interest', icon: <GiReceiveMoney /> },
-  { name: 'Salary', icon: <GiMoneyStack /> },
-  { name: 'Other Income', icon: <GiPayMoney /> },
-  { name: 'Incoming Transfer', icon: <BiTransfer /> },
+  { name: 'Collect Interest', icon: () => <GiReceiveMoney /> },
+  { name: 'Salary', icon: () => <GiMoneyStack /> },
+  { name: 'Other Income', icon: () => <GiPayMoney /> },
+  { name: 'Incoming Transfer', icon: () => <BiTransfer /> },
 ];
 
 export default Transaction;
