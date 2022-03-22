@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import './TransactionItem.css';
@@ -20,6 +21,10 @@ type TProps = {
   params: TNewTransaction
 }
 
+enum BudgetTypeEnum {
+  Income = 'Income',
+}
+
 const Transaction = function Transaction(props: TProps) {
   const { params } = props;
   const transType = params.transactionType;
@@ -28,7 +33,7 @@ const Transaction = function Transaction(props: TProps) {
 
   return (
     <div className="single-transaction">
-      <div className="left-bar" style={{ backgroundColor: transType === 'Income' ? 'yellowgreen' : '#ff1b41' }} />
+      <div className={`left-bar ${transType === BudgetTypeEnum.Income ? 'bc-yellowgreen' : 'bc-red'}`} />
       <div className="img">
         {foundExpense?.icon({})}
         {foundIncome?.icon({})}
@@ -50,7 +55,7 @@ const Transaction = function Transaction(props: TProps) {
         <div className="date">
           <h3>{params.newDateFormat}</h3>
         </div>
-        <div className="amount-tr" style={{ color: transType === 'Income' ? 'yellowgreen' : '#ff1b41' }}>
+        <div className={`amount-tr ${transType === BudgetTypeEnum.Income ? 'c-yellowgreen' : 'c-red'}`}>
           <h1>
             $
             {params.amount}

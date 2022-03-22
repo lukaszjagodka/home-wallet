@@ -42,3 +42,19 @@
   text-align: center;
   margin-top: -5px;
 }
+
+.bc-yellowgreen {
+  background-color: yellowgreen;
+}
+
+.bc-red {
+  background-color: #ff1b41;
+}
+
+.c-yellowgreen {
+  color: yellowgreen;
+}
+
+.c-red {
+  color: #ff1b41;
+}
