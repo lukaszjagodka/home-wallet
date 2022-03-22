@@ -1,0 +1,185 @@
+.add-transaction-btn {
+  background-color: rgba(255, 255, 255);
+  position: absolute;
+  height: 35px;
+  top: 8px;
+  right: 100px;
+  width: 170px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+.add-transaction-panel {
+  height: '00px';
+}
+
+.add-transaction-bar {
+  background-color: rgb(136, 114, 114);
+  height: 40px;
+  top: -20px;
+  position: relative;
+}
+
+.bars-name {
+  margin-left: 30px;
+  color: white;
+  top: 2px;
+  position: relative;
+}
+
+.balance-position {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.border-style {
+  border-style: solid;
+  border-width: 2px;
+  position: relative;
+  top: -45px;
+  left: 190px;
+  width: 50px;
+}
+
+.income-expense {
+  max-width: 300;
+  position: relative;
+  left: 270px;
+  top: -105px;
+}
+
+.category-style {
+  position: relative;
+  left: 270px;
+  top: -100px;
+}
+
+.income-image {
+  font-size: 30px;
+  position: absolute;
+  margin-top: -5px;
+}
+
+.incomeName {
+  font-size: 1.5rem;
+  position: absolute;
+  margin-left: 40px;
+}
+
+.expense-image {
+  font-size: 30px;
+  position: absolute;
+  margin-top: -3px;
+}
+
+.expense-name {
+  font-size: 20px;
+  position: absolute;
+  margin-left: 30px;
+  left: 20px;
+}
+
+.border-stylee {
+  border-style: solid;
+  border-width: 2px;
+  position: relative;
+  top: -130px;
+  left: 540px;
+  width: 50px;
+}
+
+.amount-style {
+  position: relative;
+  top: -200px;
+  left: 620px;
+  width: 150px;
+}
+
+.date-and-description {
+  top: 300px;
+  left: 50px;
+  width: 200px;
+  position: absolute;
+}
+
+.description-style {
+  position: absolute;
+  margin-left: 210px;
+  top: 0px;
+  width: 100vh;
+}
+
+.form-btn {
+  position: relative;
+  width: 45vw;
+  top: 30px;
+}
+
+.actual-balance-position {
+  position: relative;
+  width: 200px;
+  text-align: 'center';
+}
+
+.actual-balance-position > .text-center {
+  text-align: center;
+}
+
+#bdg-modal-title {
+  color: rgba(0, 89, 255, 0.678);
+  margin-left: 40px;
+}
+
+.bdg-form-control {
+  width: 230px;
+}
+
+.choice-menu-item {
+  height: 45px;
+}
+
+.choice-menu-item-position {
+  font-size: 1.5rem;
+  position: absolute;
+  margin-left: 40px;
+}
+
+.amount-modal-title {
+  color: rgba(0, 89, 255, 0.678)
+}
+
+#category-modal-title {
+  font-size: 1.3rem;
+  color: rgba(0, 89, 255, 0.678);
+  margin-left: 80px;
+}
+
+#demo-simple-select {
+  font-size: 1.5rem;
+}
+
+.input-amount {
+  top: 0px;
+}
+
+#amount-modal-title {
+  font-size: 1.5rem;
+}
+
+.cancel-btn {
+  left: 330px;
+}
+
+.submit-btn {
+  left: 600px;
+}

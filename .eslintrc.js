@@ -45,6 +45,7 @@ module.exports = {
       '@typescript-eslint/no-unused-vars': ['warn'],
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
+      'default-param-last' : 'off',
       'import/extensions': [
         2,
         'ignorePackages',

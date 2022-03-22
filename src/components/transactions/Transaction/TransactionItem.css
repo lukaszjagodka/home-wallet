@@ -1,0 +1,60 @@
+.single-transaction {
+  height: 130px;
+  width: 100%;
+  background-color: rgb(248, 248, 248);
+  margin-top: 5px;
+  display: flex;
+}
+
+.left-bar {
+  width: 1%;
+}
+
+.img {
+  width: 10%;
+  font-size: 40px;
+  text-align: center;
+  margin-top: 45px;
+}
+
+.left-side {
+  width: 57%;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.description {
+  margin-top: -10px;
+  margin-left: 10px;
+}
+
+.right-side {
+  width: 30%;
+  right: 0px;
+}
+
+.date {
+  text-align: right;
+  margin-right: 20px;
+}
+
+.amount-tr {
+  text-align: center;
+  margin-top: -5px;
+}
+
+.bc-yellowgreen {
+  background-color: yellowgreen;
+}
+
+.bc-red {
+  background-color: #ff1b41;
+}
+
+.c-yellowgreen {
+  color: yellowgreen;
+}
+
+.c-red {
+  color: #ff1b41;
+}

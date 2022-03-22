@@ -1,0 +1,80 @@
+.overview-container {
+  height: 200px;
+  width: 700px;
+  background-color: rgb(255, 255, 255);
+  margin-left: 20px;
+  margin-top: 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.overview-bar { 
+  background-color: rgba(244, 245, 245, 0.835);
+  height: 40px;
+  width: 100%;
+}
+
+.overview-name { 
+  top: 5px;
+  margin-left: 15px;
+  position: relative;
+}
+
+.month-name {
+  top: -40px;
+  left: 630px;
+  position: relative;
+}
+
+.income-main {
+  position: absolute;
+  text-align: center;
+  margin-left: 20%;
+  transform: translateX(-50%);
+}
+
+.outflow-main {
+  position: absolute;
+  text-align: center;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.balance-main {
+  position: absolute;
+  text-align: center;
+  margin-left: 80%;
+  transform: translateX(-50%);
+}
+
+.counters {
+  font-size: 20px;
+  color: rgb(110, 110, 110);
+  position: relative;
+}
+
+.income {
+  color: rgba(0, 128, 0, 0.678);
+}
+
+.outflow {
+  color: rgba(255, 0, 0, 0.678);
+}
+
+.overview-balance {
+  color: rgba(0, 89, 255, 0.678);
+}
+
+.income-counter {
+  position: relative;
+  top: -20px;
+}
+
+.outflow-counter {
+  position: relative;
+  top: -20px;
+}
+
+.balance-counter {
+  position: relative;
+  top: -20px;
+}
