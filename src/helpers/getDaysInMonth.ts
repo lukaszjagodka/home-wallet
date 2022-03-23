@@ -1,5 +1,4 @@
 /* eslint-disable no-shadow */
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import { changeDaysInChart } from '../components/accountActions';
 

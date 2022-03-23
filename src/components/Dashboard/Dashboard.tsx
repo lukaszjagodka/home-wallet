@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Charts from '../Charts/Charts';
 import Footer from '../Footer/Footer';
 import Menu from '../Menu/Menu';
@@ -7,6 +8,10 @@ import TransactionsList from '../transactions/TransactionsList/TransactionsList'
 import './Dashboard.css';
 
 function Dashboard() {
+  const { initializedDays } = useSelector(({ account }: any) => ({
+    initializedDays: account.labelDays,
+  }));
+
   return (
     <div className="dashboard-main">
       <div className="menu">
@@ -22,7 +27,7 @@ function Dashboard() {
           </div>
         </div>
         <div className="chart-container">
-          <Charts />
+          {initializedDays && <Charts />}
         </div>
       </div>
       <div className="footer-container">
