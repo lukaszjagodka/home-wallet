@@ -25,7 +25,7 @@ function Overview() {
       <Collapse in={checked}>
         <div className="overview-container">
           <div className="overview-bar">
-            <h2 className="overview-name">Overview</h2>
+            <p className="overview-name">Overview</p>
             <h4 className="month-name"><DateSelector /></h4>
           </div>
           <div className="counters">
