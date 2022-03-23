@@ -42,10 +42,10 @@ const Transaction = function Transaction(props: TProps) {
         className="left-side"
       >
         <div className="theme">
-          <h2>{params.category}</h2>
+          <h3>{params.category}</h3>
         </div>
         <div className="description">
-          <h4>{params.description}</h4>
+          <p>{params.description}</p>
         </div>
 
       </div>
@@ -53,7 +53,7 @@ const Transaction = function Transaction(props: TProps) {
         className="right-side"
       >
         <div className="date">
-          <h3>{params.newDateFormat}</h3>
+          <p>{params.newDateFormat}</p>
         </div>
         <div className={`amount-tr ${transType === BudgetTypeEnum.Income ? 'c-yellowgreen' : 'c-red'}`}>
           <h1>
