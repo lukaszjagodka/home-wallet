@@ -1,13 +1,3 @@
-export const addAmountToInflow = (payload: number) => ({
-  type: 'ADD_THE_AMOUNT_TO_THE_INFLOW',
-  payload,
-});
-
-export const addAmountToOutflow = (payload: number) => ({
-  type: 'ADD_THE_AMOUNT_TO_THE_OUTFLOW',
-  payload,
-});
-
 export const addInflow = (payload: number) => ({
   type: 'ADD_INFLOW',
   payload,
@@ -15,5 +5,10 @@ export const addInflow = (payload: number) => ({
 
 export const addOutflow = (payload: number) => ({
   type: 'ADD_OUTFLOW',
+  payload,
+});
+
+export const changeDaysInChart = (payload: Array<number>) => ({
+  type: 'CHANGE_DAYS_IN_CHART',
   payload,
 });
