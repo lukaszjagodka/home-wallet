@@ -1,5 +1,5 @@
-.chartsContainer {
-  height: 50vh;
+.charts-container {
+  height: 500px;
   width: 800px;
   background-color: rgb(255, 255, 255);
   margin-top: 70px;
@@ -8,14 +8,20 @@
   display: flex;
 }
 
-.chartsBar {
+.charts-bar {
   background-color: rgba(244, 245, 245, 0.835);
   height: 40px;
   width: 100%;
 }
 
-.chartsName {
-  top: -15px;
+.charts-name {
+  top: -5px;
   margin-left: 15px;
   position: relative;
+  font-weight: bold;
+}
+
+.chart-position {
+  position: absolute;
+  margin-top: 40px;
 }
