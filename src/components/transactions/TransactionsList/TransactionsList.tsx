@@ -26,7 +26,7 @@ const TransactionsList = function TransactionsList() {
         <div className="transactions-component">
           <div className="box-transactions-component" />
           {transactions.map((transactionObj: TNewTransaction) => (
-            <TransactionItem key={transactionObj.amount} params={transactionObj} />
+            <TransactionItem key={transactionObj.id} params={transactionObj} />
           ))}
         </div>
       </Collapse>
