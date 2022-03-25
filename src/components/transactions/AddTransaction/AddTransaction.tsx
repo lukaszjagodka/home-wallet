@@ -34,6 +34,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 
 import { format } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 
 import { TNewTransaction, TList } from '../../../types/types';
 import capitalizeFirstLetter from '../../../helpers/capitalizeFirstLetter';
@@ -78,7 +79,7 @@ function AddTransaction() {
   const [category, setCategory] = useState<string>('');
   const [balance, setBalance] = useState<number>(inflow - outflow);
   const [amount, setAmount] = useState<number | string>('');
-  const [date, setDate] = useState<Date | null | string>(new Date());
+  const [date, setDate] = useState<Date | null>(new Date());
   const [formatedDate, setFormatedDate] = useState<Date | null | string>();
   const [burgetType, setBurgetType] = useState<TList>();
   const [description, setDescription] = useState<string>('');
@@ -121,15 +122,14 @@ function AddTransaction() {
 
   const handleAddTransaction = (event: any) => {
     if (budget === '' || category === '' || amount === undefined || amount === '') return;
-
-    const newDateFormat = formatedDate !== undefined ? formatedDate : formatDateFns(date);
-
     const newTransaction: TNewTransaction = {
+      id: uuidv4(),
       transactionType: budget,
       category,
       amount: Number(amount),
-      newDateFormat,
+      selectedDay: date,
       description,
+      whenObjAdded: new Date(),
     };
     dispatch(addTransaction(newTransaction));
     if (budget === BudgetTypeEnum.Income) {
@@ -303,10 +303,6 @@ function AddTransaction() {
       </Modal>
     </div>
   );
-}
-
-function formatDateFns(date: any) {
-  return format(date, 'dd/MM/yyyy');
 }
 
 const style = {
