@@ -1,8 +1,8 @@
 import { TAccount, TAccountAction } from '../types/types';
 
 const initialState = {
-  inflow: 3156,
-  outflow: 606,
+  inflow: 0,
+  outflow: 0,
   labelDays: [0, 0],
 };
 
