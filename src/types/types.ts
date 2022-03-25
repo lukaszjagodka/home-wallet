@@ -8,11 +8,13 @@ type TCategory = {
 export type TList = Array<TCategory>
 
 export type TNewTransaction = {
+  id: string,
   transactionType: string,
   category: string,
   amount: number,
-  newDateFormat: Date | null | string,
+  selectedDay: Date | null,
   description: string,
+  whenObjAdded: Date
 };
 
 export type TTransactionAction = {
@@ -44,6 +46,7 @@ export type TTransactionsOnList = {
 export type TAccountOnList = {
   account: {
     inflow: number,
-    outflow: number
+    outflow: number,
+    labelDays: Array<number>
   }
 }
