@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/no-unused-prop-types */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './TransactionItem.css';
 
 import { IoFastFoodSharp, IoBusOutline, IoTvSharp } from 'react-icons/io5';
@@ -15,6 +15,7 @@ import { RiBillFill } from 'react-icons/ri';
 import { MdCastForEducation } from 'react-icons/md';
 import { BiTransfer } from 'react-icons/bi';
 
+import { format } from 'date-fns';
 import { TList, TNewTransaction } from '../../../types/types';
 
 type TProps = {
@@ -27,9 +28,18 @@ enum BudgetTypeEnum {
 
 const Transaction = function Transaction(props: TProps) {
   const { params } = props;
+  const [date, setDate] = useState<string>('');
   const transType = params.transactionType;
   const foundExpense = expense.find((element) => element.name === params.category);
   const foundIncome = income.find((element) => element.name === params.category);
+  const dateObj = params.selectedDay;
+
+  useEffect(() => {
+    if (dateObj) {
+      const dateFormated = format(dateObj, 'dd/MM/yyyy');
+      setDate(dateFormated);
+    }
+  });
 
   return (
     <div className="single-transaction">
@@ -53,13 +63,13 @@ const Transaction = function Transaction(props: TProps) {
         className="right-side"
       >
         <div className="date">
-          <p>{params.newDateFormat}</p>
+          <p>{date}</p>
         </div>
         <div className={`amount-tr ${transType === BudgetTypeEnum.Income ? 'c-yellowgreen' : 'c-red'}`}>
-          <h1>
+          <h2>
             $
             {params.amount}
-          </h1>
+          </h2>
         </div>
       </div>
     </div>
