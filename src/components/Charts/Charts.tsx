@@ -90,22 +90,27 @@ function Charts() {
 
     for (let i = 1; i <= daysInMonthArray?.length; i++) {
       if (inflowArray[i] || mappedOutflow[i]) {
-        if (inflowArray[i] === undefined && mappedOutflow[i]) {
-          if (!temporaryBalance) {
-            balanceArray[i] = mappedOutflow[i];
-            temporaryBalance = balanceArray[i];
-          } else { balanceArray[i] = temporaryBalance + mappedOutflow[i]; }
-          temporaryBalance = balanceArray[i];
-        } else if (inflowArray[i] && mappedOutflow[i] === undefined && !temporaryBalance) {
-          balanceArray[i] = inflowArray[i];
-          temporaryBalance = balanceArray[i];
-        } else if (inflowArray[i] && mappedOutflow[i] === undefined) {
-          balanceArray[i] = temporaryBalance + inflowArray[i];
-          temporaryBalance = balanceArray[i];
-        } else if (inflowArray[i] && mappedOutflow[i] && temporaryBalance) {
+        if (inflowArray[i] && mappedOutflow[i]) {
           let dailyBalance = inflowArray[i] + mappedOutflow[i];
           let actualBalance = temporaryBalance;
           balanceArray[i] = actualBalance + dailyBalance;
+          temporaryBalance = balanceArray[i];
+        } else if (inflowArray[i] === undefined && mappedOutflow[i]) {
+          if (!temporaryBalance) {
+            balanceArray[i] = mappedOutflow[i];
+            temporaryBalance = balanceArray[i];
+          } else {
+            balanceArray[i] = temporaryBalance + mappedOutflow[i];
+            temporaryBalance = balanceArray[i];
+          }
+        } else if (inflowArray[i] && mappedOutflow[i] === undefined && !temporaryBalance) {
+          balanceArray[i] = inflowArray[i];
+          temporaryBalance = balanceArray[i];
+        } else if (inflowArray[i] && mappedOutflow[i] === undefined && temporaryBalance) {
+          balanceArray[i] = temporaryBalance + inflowArray[i];
+          temporaryBalance = balanceArray[i];
+        } else if (inflowArray[i] && mappedOutflow[i] === undefined) {
+          balanceArray[i] = temporaryBalance + inflowArray[i];
           temporaryBalance = balanceArray[i];
         }
       } else if (temporaryBalance) {
