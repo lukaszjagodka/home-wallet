@@ -39,7 +39,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { TNewTransaction, TList } from '../../../types/types';
 import capitalizeFirstLetter from '../../../helpers/capitalizeFirstLetter';
 import { addTransaction } from '../transactionsActions';
-import { addInflow, addOutflow } from '../../accountActions';
+import { addInflow, addOutflow, editMode } from '../../accountActions';
 
 const income: TList = [
   { name: 'Collect Interest', icon: () => <GiReceiveMoney /> },
@@ -70,9 +70,10 @@ enum BudgetTypeEnum {
 
 function AddTransaction() {
   const dispatch = useDispatch();
-  const { inflow, outflow } = useSelector(({ account }: any) => ({
+  const { inflow, outflow, editModeSelector } = useSelector(({ account }: any) => ({
     inflow: account.inflow,
     outflow: account.outflow,
+    editModeSelector: account.editMode,
   }));
   const [open, setOpen] = useState(false);
   const [budget, setBudget] = useState<string>('');
@@ -154,7 +155,7 @@ function AddTransaction() {
   return (
     <div>
       <div className="add-transaction-btn">
-        <Button onClick={handleOpen}>Add Transaction</Button>
+        <Button onClick={handleOpen} disabled={editModeSelector}>Add Transaction</Button>
       </div>
       <Modal
         aria-labelledby="transition-modal-title"
