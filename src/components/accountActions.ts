@@ -12,3 +12,8 @@ export const changeDaysInChart = (payload: Array<number>) => ({
   type: 'CHANGE_DAYS_IN_CHART',
   payload,
 });
+
+export const editMode = (payload: boolean) => ({
+  type: 'EDIT_MODE',
+  payload,
+});

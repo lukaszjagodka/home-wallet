@@ -4,6 +4,7 @@ const initialState = {
   inflow: 0,
   outflow: 0,
   labelDays: [0, 0],
+  editMode: false,
 };
 
 const accountReducer = (state: TAccount = initialState, action: TAccountAction) => {
@@ -22,6 +23,11 @@ const accountReducer = (state: TAccount = initialState, action: TAccountAction) 
       return {
         ...state,
         labelDays: action.payload,
+      };
+    case 'EDIT_MODE':
+      return {
+        ...state,
+        editMode: action.payload,
       };
     default:
       return state;
