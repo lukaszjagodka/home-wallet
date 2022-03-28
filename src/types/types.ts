@@ -34,7 +34,8 @@ export type TTransactions = {
 export type TAccount = {
   inflow: number,
   outflow: number,
-  labelDays: Array<number>
+  labelDays: Array<number>,
+  editMode: boolean
 }
 
 export type TTransactionsOnList = {
@@ -47,6 +48,7 @@ export type TAccountOnList = {
   account: {
     inflow: number,
     outflow: number,
-    labelDays: Array<number>
+    labelDays: Array<number>,
+    editMode: boolean
   }
 }
