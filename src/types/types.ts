@@ -52,3 +52,9 @@ export type TAccountOnList = {
     editMode: boolean
   }
 }
+
+export type TEditTransaction = {
+  id: string,
+  description: string,
+  amount: number
+}
