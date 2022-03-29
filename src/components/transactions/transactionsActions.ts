@@ -9,3 +9,8 @@ export const editTransaction = (payload: TEditTransaction) => ({
   type: 'EDIT_TRANSACTION',
   payload,
 });
+
+export const deleteTransaction = (payload: string) => ({
+  type: 'DELETE_TRANSACTION',
+  payload,
+});
