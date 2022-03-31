@@ -17,3 +17,8 @@ export const editMode = (payload: boolean) => ({
   type: 'EDIT_MODE',
   payload,
 });
+
+export const updateChart = (payload: boolean) => ({
+  type: 'UPDATE_CHART',
+  payload,
+});

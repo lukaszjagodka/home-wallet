@@ -49,7 +49,8 @@ export type TAccountOnList = {
     inflow: number,
     outflow: number,
     labelDays: Array<number>,
-    editMode: boolean
+    editMode: boolean,
+    updateChart: boolean
   }
 }
 

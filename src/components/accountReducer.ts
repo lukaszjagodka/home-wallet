@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { TAccount, TAccountAction } from '../types/types';
 
 const initialState = {
@@ -5,6 +6,7 @@ const initialState = {
   outflow: 0,
   labelDays: [0, 0],
   editMode: false,
+  updateChart: false,
 };
 
 const accountReducer = (state: TAccount = initialState, action: TAccountAction) => {
@@ -28,6 +30,12 @@ const accountReducer = (state: TAccount = initialState, action: TAccountAction) 
       return {
         ...state,
         editMode: action.payload,
+      };
+    case 'UPDATE_CHART':
+      console.log(action.payload);
+      return {
+        ...state,
+        updateChart: action.payload,
       };
     default:
       return state;
