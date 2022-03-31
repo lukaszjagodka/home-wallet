@@ -40,6 +40,7 @@ import { TNewTransaction, TList } from '../../../types/types';
 import capitalizeFirstLetter from '../../../helpers/capitalizeFirstLetter';
 import { addTransaction } from '../transactionsActions';
 import { addInflow, addOutflow, editMode } from '../../accountActions';
+import { BudgetTypeEnum } from '../../../helpers/enum/enum';
 
 const income: TList = [
   { name: 'Collect Interest', icon: () => <GiReceiveMoney /> },
@@ -62,11 +63,6 @@ const expense: TList = [
   { name: 'Insurances', icon: () => <GiScarecrow /> },
   { name: 'Education', icon: () => <MdCastForEducation /> },
 ];
-
-enum BudgetTypeEnum {
-  Income = 'Income',
-  Expense = 'Expense'
-}
 
 function AddTransaction() {
   const dispatch = useDispatch();
