@@ -50,6 +50,7 @@ function Charts() {
   const inflowArray: number[] = [];
   const outflowArray: number[] = [];
   const balanceArray: number[] = [];
+  let negativeArray: number[] = [];
   let chosenArray: any;
 
   let total = 0;
@@ -89,6 +90,14 @@ function Charts() {
     });
 
     mappedOutflow = outflowArray.map((item: number) => -item);
+
+    const tempNegativArray = outflowArray.map((item: number) => {
+      const sum = total + item;
+      total = sum;
+      return sum;
+    });
+
+    negativeArray = tempNegativArray.map((item: number) => -item);
 
     for (let i = 1; i <= daysInMonthArray?.length; i++) {
       if (inflowArray[i] || mappedOutflow[i]) {
@@ -133,7 +142,7 @@ function Charts() {
           },
           {
             label: 'Outflow',
-            data: mappedOutflow,
+            data: negativeArray,
             borderColor: 'rgb(255, 44, 80)',
           },
           {
