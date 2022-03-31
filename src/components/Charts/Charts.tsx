@@ -53,7 +53,8 @@ function Charts() {
   let negativeArray: number[] = [];
   let chosenArray: any;
 
-  let total = 0;
+  let total: number = 0;
+  let yoyal: number = 0;
   let mappedInflow: any;
   let mappedOutflow: any;
   let temporaryBalance: number = 0;
@@ -91,13 +92,11 @@ function Charts() {
 
     mappedOutflow = outflowArray.map((item: number) => -item);
 
-    const tempNegativArray = outflowArray.map((item: number) => {
-      const sum = total + item;
-      total = sum;
+    negativeArray = mappedOutflow.map((item: number) => {
+      const sum = yoyal + item;
+      yoyal = sum;
       return sum;
     });
-
-    negativeArray = tempNegativArray.map((item: number) => -item);
 
     for (let i = 1; i <= daysInMonthArray?.length; i++) {
       if (inflowArray[i] || mappedOutflow[i]) {
