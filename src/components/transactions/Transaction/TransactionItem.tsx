@@ -20,23 +20,25 @@ import { BiTransfer } from 'react-icons/bi';
 import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
-import { TAccountOnList, TList, TNewTransaction } from '../../../types/types';
-import { addInflow, addOutflow, editMode } from '../../accountActions';
+import {
+  TAccountOnList, TList, TNewTransaction,
+} from '../../../types/types';
+import {
+  addInflow, addOutflow, editMode, updateChart,
+} from '../../accountActions';
 import { deleteTransaction, editTransaction } from '../transactionsActions';
+import { BudgetTypeEnum } from '../../../helpers/enum/enum';
 
 type TProps = {
   params: TNewTransaction
 }
 
-enum BudgetTypeEnum {
-  Income = 'Income',
-}
-
 const Transaction = function Transaction(props: TProps) {
   const dispatch = useDispatch();
   const { params } = props;
-  const { editModeSelector } = useSelector(({ account }: TAccountOnList) => ({
+  const { editModeSelector, forceUpdate } = useSelector(({ account }: TAccountOnList) => ({
     editModeSelector: account.editMode,
+    forceUpdate: account.updateChart,
   }));
   const [date, setDate] = useState<string>('');
   const [inputDescription, setInputDescription] = useState<string>('');
@@ -102,6 +104,7 @@ const Transaction = function Transaction(props: TProps) {
     }
     setIsEdit(false);
     dispatch(editMode(false));
+    dispatch(updateChart(!forceUpdate));
   };
 
   const cancelEdit = () => {

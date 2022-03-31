@@ -21,6 +21,7 @@ import {
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 import { TAccountOnList, TTransactionsOnList } from '../../types/types';
+import { BudgetTypeEnum } from '../../helpers/enum/enum';
 
 ChartJS.register(
   CategoryScale,
@@ -38,8 +39,9 @@ function Charts() {
   const [chartData, setChartData] = useState<ChartData<'line'>>({
     datasets: [],
   });
-  const { daysInChart } = useSelector(({ account }: TAccountOnList) => ({
+  const { daysInChart, updateChart } = useSelector(({ account }: TAccountOnList) => ({
     daysInChart: account.labelDays,
+    updateChart: account.updateChart,
   }));
   const { transactionsArray } = useSelector(({ transactions }: TTransactionsOnList) => ({
     transactionsArray: transactions.transactions,
@@ -66,7 +68,7 @@ function Charts() {
 
   transactionsArray.forEach((element) => {
     if (element.selectedDay && daysInMonthArray) {
-      element.transactionType === 'Income' ? chosenArray = inflowArray : chosenArray = outflowArray;
+      element.transactionType === BudgetTypeEnum.Income ? chosenArray = inflowArray : chosenArray = outflowArray;
       if (daysInChart[1] === element.selectedDay.getMonth()) {
         const temporaryVariable = chosenArray[element.selectedDay.getDate()];
         if (temporaryVariable === undefined) {
@@ -155,7 +157,7 @@ function Charts() {
 
   useEffect(() => {
     initializeChart();
-  }, [daysInMonthArray, transactionsArray]);
+  }, [daysInMonthArray, transactionsArray, updateChart]);
 
   useEffect(() => {
     createArray();
