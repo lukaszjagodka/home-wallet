@@ -1,8 +1,6 @@
 # Home Wallet
   An application designed to manage household expenses that are updated on the graph.
 
-![Home wallet](http://url/to/img.png)
-
 [![Good quality example video](https://imgur.com/g4b6yMT)](https://streamable.com/sjlcaf)
 
 # [Client](https://github.com/lukaszjagodka/home-wallet)
