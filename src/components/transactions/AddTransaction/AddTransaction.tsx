@@ -176,24 +176,9 @@ function AddTransaction() {
                   Add transaction
                 </h1>
               </div>
-              <div
-                className="actual-balance-position"
-              >
-                <div className="text-center">
-                  <Typography id="transition-modal-title" variant="h6" component="h2" style={{ color: 'rgba(0, 89, 255, 0.678)' }}>
-                    Actual balance
-                  </Typography>
-                  <h1 className="balance-position" style={{ color: balance > 1 ? 'green' : 'red' }}>
-                    $
-                    {balance}
-                  </h1>
-                </div>
-              </div>
-              <div className="border-style" />
+
               <div className="income-expense">
-                <Typography className="bdg-modal-title" id="bdg-modal-title" variant="h6" component="h2">
-                  Income / Expense
-                </Typography>
+                <p className="income-expense-name">Income / Expense</p>
                 <FormControl className="bdg-form-control" variant="standard" sx={{ m: 1 }}>
                   <Select
                     labelId="demo-simple-select-label"
@@ -218,8 +203,8 @@ function AddTransaction() {
               budget !== '' && (
                 <>
                   <div className="category-style">
-                    <Typography id="category-modal-title" variant="h6" component="h2">Category</Typography>
-                    <FormControl variant="standard" sx={{ m: 1, width: 230 }}>
+                    <p className="category-name">Category</p>
+                    <FormControl className="cat-form-control" variant="standard" sx={{ m: 1 }}>
                       <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -244,14 +229,9 @@ function AddTransaction() {
                       </Select>
                     </FormControl>
                   </div>
-                  <div
-                    className="border-stylee"
-                  />
                   <div className="amount-style">
                     <FormControl sx={{ m: 1 }} variant="standard">
-                      <Typography className="amount-modal-title" id="amount-modal-title" variant="h6" component="h2">
-                        Amount
-                      </Typography>
+                      <p className="amount-name">Amount</p>
                       <Input
                         className="input-amount"
                         type="number"
@@ -296,7 +276,7 @@ function AddTransaction() {
                 className="form-btn"
               >
                 <Button className="submit-btn" variant="contained" color="success" onClick={handleAddTransaction}>Add transaction</Button>
-                <Button className="cancel-btn" variant="contained" onClick={handleCloseBtn}>Cancel</Button>
+                <Button className="cancel-btn-adf" variant="contained" onClick={handleCloseBtn}>Cancel</Button>
               </div>
             </div>
           </Box>
@@ -311,8 +291,8 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 820,
-  height: 400,
+  width: 800,
+  height: 300,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
