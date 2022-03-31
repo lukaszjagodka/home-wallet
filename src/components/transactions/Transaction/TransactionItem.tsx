@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 /* eslint-disable no-shadow */
 /* eslint-disable react/no-unused-prop-types */
 import React, { useEffect, useState } from 'react';
@@ -18,9 +19,10 @@ import { BiTransfer } from 'react-icons/bi';
 
 import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
+import Button from '@mui/material/Button';
 import { TAccountOnList, TList, TNewTransaction } from '../../../types/types';
-import { editMode } from '../../accountActions';
-import { editTransaction } from '../transactionsActions';
+import { addInflow, addOutflow, editMode } from '../../accountActions';
+import { deleteTransaction, editTransaction } from '../transactionsActions';
 
 type TProps = {
   params: TNewTransaction
@@ -47,6 +49,22 @@ const Transaction = function Transaction(props: TProps) {
 
   const ariaLabel = { 'aria-label': 'description' };
 
+  const updateOverview = () => {
+    if (params.transactionType === BudgetTypeEnum.Income) {
+      if (inputAmount < params.amount) {
+        dispatch(addInflow(-Number(params.amount - inputAmount)));
+      } else {
+        dispatch(addInflow(-Number(params.amount - inputAmount)));
+      }
+    } else {
+      if (inputAmount < params.amount) {
+        dispatch(addOutflow(-Number(params.amount - inputAmount)));
+      } else {
+        dispatch(addOutflow(-Number(params.amount - inputAmount)));
+      }
+    }
+  };
+
   useEffect(() => {
     if (dateObj) {
       const dateFormated = format(dateObj, 'dd/MM/yyyy');
@@ -70,11 +88,22 @@ const Transaction = function Transaction(props: TProps) {
       amount: inputAmount,
     };
     dispatch(editTransaction(editObj));
+    updateOverview();
     setIsEdit(false);
     dispatch(editMode(false));
   };
 
-  const deleteItem = () => { console.log('delete'); };
+  const deleteItem = () => {
+    dispatch(deleteTransaction(params.id));
+    if (params.transactionType === BudgetTypeEnum.Income) {
+      dispatch(addInflow(-Number(params.amount)));
+    } else {
+      dispatch(addOutflow(-Number(params.amount)));
+    }
+    setIsEdit(false);
+    dispatch(editMode(false));
+  };
+
   const cancelEdit = () => {
     setIsEdit(false);
     dispatch(editMode(false));
@@ -85,7 +114,10 @@ const Transaction = function Transaction(props: TProps) {
   };
 
   const handleChangeInputAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputAmount(Number(event.target.value));
+    const numberRegex = /^[0-9\b]+$/;
+    if (event.target.value === '' || numberRegex.test(event.target.value)) {
+      setInputAmount(Number(event.target.value));
+    }
   };
 
   return (
@@ -94,13 +126,10 @@ const Transaction = function Transaction(props: TProps) {
         isEdit && (
           <div
             className="btns-display"
-            style={{
-              width: '300px', position: 'absolute', marginTop: '25px', marginLeft: '250px',
-            }}
           >
-            <button type="button" onClick={editInput} style={{ position: 'relative' }}>edit</button>
-            <button type="button" onClick={deleteItem} style={{ position: 'relative', marginLeft: '5px' }}>delete</button>
-            <button type="button" onClick={cancelEdit} style={{ position: 'relative', marginLeft: '5px' }}>cancel</button>
+            <Button variant="contained" className="edit-btn" color="success" size="small" onClick={editInput}>edit</Button>
+            <Button variant="contained" className="delete-btn" size="small" color="error" onClick={deleteItem}>delete</Button>
+            <Button variant="contained" className="cancel-btn" size="small" onClick={cancelEdit}>cancel</Button>
           </div>
         )
       }
@@ -121,7 +150,7 @@ const Transaction = function Transaction(props: TProps) {
           }
           {
             isEdit
-              && <Input value={inputDescription} onChange={handleChangeInputDescription} style={{ width: '370px' }} />
+              && <Input value={inputDescription} onChange={handleChangeInputDescription} className="inputDescription" />
           }
         </div>
 
@@ -144,7 +173,7 @@ const Transaction = function Transaction(props: TProps) {
           }
             {
             isEdit
-              && <Input value={inputAmount} inputProps={ariaLabel} onChange={handleChangeInputAmount} style={{ width: '100px' }} />
+              && <Input className="amount-input" value={inputAmount} inputProps={ariaLabel} onChange={handleChangeInputAmount} style={{ width: '100px' }} />
           }
           </h2>
         </div>
