@@ -1,8 +1,6 @@
-/* eslint-disable operator-assignment */
-/* eslint-disable prefer-const */
+/* eslint-disable no-shadow */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-plusplus */
-/* eslint-disable no-shadow */
 import React, { useRef, useEffect, useState } from 'react';
 import type { ChartData } from 'chart.js';
 import Collapse from '@mui/material/Collapse';
@@ -36,12 +34,17 @@ function Charts() {
   const chartRef = useRef<ChartJS>(null);
   const [checked, setChecked] = useState(false);
   const [daysInMonthArray, setDaysInMonthArray] = useState<Array<number>>();
+  const [lastSelectedtransaction, setLastSelectedtransaction] = useState<number>(1);
   const [chartData, setChartData] = useState<ChartData<'line'>>({
     datasets: [],
   });
-  const { daysInChart, updateChart } = useSelector(({ account }: TAccountOnList) => ({
+  const {
+    daysInChart, updateChart, inflow, outflow,
+  } = useSelector(({ account }: TAccountOnList) => ({
     daysInChart: account.labelDays,
     updateChart: account.updateChart,
+    inflow: account.inflow,
+    outflow: account.outflow,
   }));
   const { transactionsArray } = useSelector(({ transactions }: TTransactionsOnList) => ({
     transactionsArray: transactions.transactions,
@@ -49,7 +52,7 @@ function Charts() {
 
   const inflowArray: number[] = [];
   const outflowArray: number[] = [];
-  const balanceArray: number[] = [];
+  let balanceArray: number[] = [];
   let negativeArray: number[] = [];
   let chosenArray: any;
 
@@ -61,10 +64,9 @@ function Charts() {
 
   const createArray = () => {
     const labelsArray:any = [];
-    for (let i = 0; i <= daysInChart[0]; i++) {
+    for (let i = 1; i <= daysInChart[0]; i++) {
       labelsArray[i] = i;
     }
-    labelsArray.shift();
     setDaysInMonthArray(labelsArray);
   };
 
@@ -76,8 +78,8 @@ function Charts() {
         if (temporaryVariable === undefined) {
           chosenArray[element.selectedDay.getDate()] = element.amount;
         } else {
-          const abc = temporaryVariable + element.amount;
-          chosenArray[element.selectedDay.getDate()] = abc;
+          const drawer = temporaryVariable + element.amount;
+          chosenArray[element.selectedDay.getDate()] = drawer;
         }
       }
     }
@@ -98,11 +100,25 @@ function Charts() {
       return sum;
     });
 
+    if (transactionsArray.length) {
+      for (let i = 1; i <= lastSelectedtransaction; i++) {
+        if (typeof mappedInflow[i] === 'undefined') {
+          mappedInflow[i] = mappedInflow[i - 1];
+        }
+      }
+
+      for (let i = 1; i <= lastSelectedtransaction; i++) {
+        if (typeof negativeArray[i] === 'undefined') {
+          negativeArray[i] = negativeArray[i - 1];
+        }
+      }
+    }
+
     for (let i = 1; i <= daysInMonthArray?.length; i++) {
       if (inflowArray[i] || mappedOutflow[i]) {
         if (inflowArray[i] && mappedOutflow[i]) {
-          let dailyBalance = inflowArray[i] + mappedOutflow[i];
-          let actualBalance = temporaryBalance;
+          const dailyBalance = inflowArray[i] + mappedOutflow[i];
+          const actualBalance = temporaryBalance;
           balanceArray[i] = actualBalance + dailyBalance;
           temporaryBalance = balanceArray[i];
         } else if (inflowArray[i] === undefined && mappedOutflow[i]) {
@@ -117,9 +133,6 @@ function Charts() {
           balanceArray[i] = inflowArray[i];
           temporaryBalance = balanceArray[i];
         } else if (inflowArray[i] && mappedOutflow[i] === undefined && temporaryBalance) {
-          balanceArray[i] = temporaryBalance + inflowArray[i];
-          temporaryBalance = balanceArray[i];
-        } else if (inflowArray[i] && mappedOutflow[i] === undefined) {
           balanceArray[i] = temporaryBalance + inflowArray[i];
           temporaryBalance = balanceArray[i];
         }
@@ -146,7 +159,7 @@ function Charts() {
           },
           {
             label: 'Balance',
-            data: balanceArray,
+            data: balanceArray = balanceArray.slice(0, lastSelectedtransaction + 2),
             borderColor: 'rgba(51, 152, 255, 0.68)',
           },
         ],
@@ -181,6 +194,13 @@ function Charts() {
       }, 300);
     }
   }, []);
+
+  useEffect(() => {
+    if (transactionsArray[0]) {
+      const x = transactionsArray[0].selectedDay;
+      x && setLastSelectedtransaction(x.getDate());
+    }
+  });
 
   return (
     <div>
