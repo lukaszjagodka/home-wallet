@@ -1,29 +1,8 @@
-import { TTransactions, TTransactionAction } from '../../types/types';
+/* eslint-disable no-case-declarations */
+import { TTransactions, TTransactionAction, TNewTransaction } from '../../types/types';
 
 const initialState = {
-  transactions: [
-    {
-      amount: 141,
-      category: 'Transportation',
-      description: 'Is it bungla?',
-      newDateFormat: '16/03/2022',
-      transactionType: 'Expense',
-    },
-    {
-      amount: 465,
-      category: 'Rentals',
-      description: 'Lorem ipsum dolor',
-      newDateFormat: '15/03/2022',
-      transactionType: 'Expense',
-    },
-    {
-      amount: 3156,
-      category: 'Salary',
-      description: 'Lorem ipsum dolor',
-      newDateFormat: '10/03/2022',
-      transactionType: 'Income',
-    },
-  ],
+  transactions: [],
 };
 
 const transactionsReducer = (state: TTransactions = initialState, action: TTransactionAction) => {
@@ -33,6 +12,16 @@ const transactionsReducer = (state: TTransactions = initialState, action: TTrans
         ...state,
         transactions: [action.payload, ...state.transactions],
       };
+    case 'EDIT_TRANSACTION':
+      const updatedTransaction = state.transactions.map((transaction) => (transaction.id === action.payload.id ? { ...transaction, description: action.payload.description, amount: action.payload.amount } : transaction));
+      return {
+        ...state,
+        transactions: updatedTransaction,
+      };
+    case 'DELETE_TRANSACTION':
+      const index = state.transactions.findIndex((item) => item.id === action.payload);
+      if (index !== -1) { state.transactions.splice(index, 1); }
+      return state;
     default:
       return state;
   }

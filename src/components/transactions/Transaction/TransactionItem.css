@@ -1,5 +1,5 @@
 .single-transaction {
-  height: 130px;
+  height: 100px;
   width: 100%;
   background-color: rgb(248, 248, 248);
   margin-top: 5px;
@@ -10,22 +10,63 @@
   width: 1%;
 }
 
+.btns-display {
+  width: 300px;
+  position: absolute;
+  margin-top: 15px;
+  margin-left: 250px;
+}
+
+.edit-btn {
+  position: relative;
+  opacity: 50%;
+}
+
+.edit-btn:hover {
+  opacity: 90%;
+}
+
+.delete-btn {
+  position: relative;
+  left: 5px;
+  opacity: 50%;
+}
+
+.delete-btn:hover {
+  opacity: 90%;
+}
+
+.cancel-btn {
+  position: relative;
+  left: 10px;
+  opacity: 50%;
+}
+
+.cancel-btn:hover {
+  opacity: 90%;
+}
+
 .img {
   width: 10%;
-  font-size: 40px;
+  font-size: 35px;
   text-align: center;
-  margin-top: 45px;
+  margin-top: 30px;
 }
 
 .left-side {
   width: 57%;
-  margin-top: 20px;
+  margin-top: 0px;
   margin-left: 10px;
 }
 
 .description {
-  margin-top: -10px;
+  margin-top: -13px;
   margin-left: 10px;
+}
+
+.inputDescription {
+  width: 375px;
+  top: 5px;
 }
 
 .right-side {
@@ -39,8 +80,13 @@
 }
 
 .amount-tr {
-  text-align: center;
-  margin-top: -5px;
+  text-align: left;
+  margin-top: -20px;
+  margin-left: 20px;
+}
+
+.amount-input {
+  top: 15px;
 }
 
 .bc-yellowgreen {

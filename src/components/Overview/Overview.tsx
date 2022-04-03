@@ -4,8 +4,9 @@ import './Overview.css';
 import Collapse from '@mui/material/Collapse';
 import { useSelector } from 'react-redux';
 import { TAccountOnList } from '../../types/types';
+import DateSelector from '../DateSelector/DateSelector';
 
-const Overview = function Overview() {
+function Overview() {
   const { inflow, outflow } = useSelector(({ account }: TAccountOnList) => ({
     inflow: account.inflow,
     outflow: account.outflow,
@@ -24,8 +25,8 @@ const Overview = function Overview() {
       <Collapse in={checked}>
         <div className="overview-container">
           <div className="overview-bar">
-            <h2 className="overview-name">Overview</h2>
-            <h3 className="month-name">Month</h3>
+            <p className="overview-name">Overview</p>
+            <h4 className="month-name"><DateSelector /></h4>
           </div>
           <div className="counters">
             <div className="income-main">
@@ -54,6 +55,6 @@ const Overview = function Overview() {
       </Collapse>
     </div>
   );
-};
+}
 
 export default Overview;

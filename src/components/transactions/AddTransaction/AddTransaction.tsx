@@ -34,11 +34,13 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 
 import { format } from 'date-fns';
+import { v4 as uuidv4 } from 'uuid';
 
 import { TNewTransaction, TList } from '../../../types/types';
 import capitalizeFirstLetter from '../../../helpers/capitalizeFirstLetter';
 import { addTransaction } from '../transactionsActions';
-import { addInflow, addOutflow } from '../../accountActions';
+import { addInflow, addOutflow, editMode } from '../../accountActions';
+import { BudgetTypeEnum } from '../../../helpers/enum/enum';
 
 const income: TList = [
   { name: 'Collect Interest', icon: () => <GiReceiveMoney /> },
@@ -62,23 +64,19 @@ const expense: TList = [
   { name: 'Education', icon: () => <MdCastForEducation /> },
 ];
 
-enum BudgetTypeEnum {
-  Income = 'Income',
-  Expense = 'Expense'
-}
-
 function AddTransaction() {
   const dispatch = useDispatch();
-  const { inflow, outflow } = useSelector(({ account }: any) => ({
+  const { inflow, outflow, editModeSelector } = useSelector(({ account }: any) => ({
     inflow: account.inflow,
     outflow: account.outflow,
+    editModeSelector: account.editMode,
   }));
   const [open, setOpen] = useState(false);
   const [budget, setBudget] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [balance, setBalance] = useState<number>(inflow - outflow);
   const [amount, setAmount] = useState<number | string>('');
-  const [date, setDate] = useState<Date | null | string>(new Date());
+  const [date, setDate] = useState<Date | null>(new Date());
   const [formatedDate, setFormatedDate] = useState<Date | null | string>();
   const [burgetType, setBurgetType] = useState<TList>();
   const [description, setDescription] = useState<string>('');
@@ -96,9 +94,7 @@ function AddTransaction() {
     setCategory('');
   };
 
-  const handleCloseBtn = (event: any) => {
-    setOpen(false);
-  };
+  const closeBtn = () => { setOpen(false); };
 
   const handleChangeAmount = (event: any) => {
     const numberRegex = /^[0-9\b]+$/;
@@ -119,17 +115,16 @@ function AddTransaction() {
     setDescription('');
   };
 
-  const handleAddTransaction = (event: any) => {
+  const handleAddTransaction = () => {
     if (budget === '' || category === '' || amount === undefined || amount === '') return;
-
-    const newDateFormat = formatedDate !== undefined ? formatedDate : formatDateFns(date);
-
     const newTransaction: TNewTransaction = {
+      id: uuidv4(),
       transactionType: budget,
       category,
       amount: Number(amount),
-      newDateFormat,
+      selectedDay: date,
       description,
+      createdAt: new Date(),
     };
     dispatch(addTransaction(newTransaction));
     if (budget === BudgetTypeEnum.Income) {
@@ -137,16 +132,15 @@ function AddTransaction() {
     } else {
       dispatch(addOutflow(Number(amount)));
     }
-    handleClose();
+    closeAddTransaction();
     resetForm();
   };
 
-  const handleOpen = () => {
+  const openAddTransaction = () => {
     setOpen(true);
-    const resetBalance = inflow - outflow;
-    setBalance(resetBalance);
+    setBalance(inflow - outflow);
   };
-  const handleClose = () => {
+  const closeAddTransaction = () => {
     setOpen(false);
     resetForm();
   };
@@ -154,13 +148,13 @@ function AddTransaction() {
   return (
     <div>
       <div className="add-transaction-btn">
-        <Button onClick={handleOpen}>Add Transaction</Button>
+        <Button onClick={openAddTransaction} disabled={editModeSelector}>Add Transaction</Button>
       </div>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={handleClose}
+        onClose={closeAddTransaction}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
@@ -175,24 +169,9 @@ function AddTransaction() {
                   Add transaction
                 </h1>
               </div>
-              <div
-                className="actual-balance-position"
-              >
-                <div className="text-center">
-                  <Typography id="transition-modal-title" variant="h6" component="h2" style={{ color: 'rgba(0, 89, 255, 0.678)' }}>
-                    Actual balance
-                  </Typography>
-                  <h1 className="balance-position" style={{ color: balance > 1 ? 'green' : 'red' }}>
-                    $
-                    {balance}
-                  </h1>
-                </div>
-              </div>
-              <div className="border-style" />
+
               <div className="income-expense">
-                <Typography className="bdg-modal-title" id="bdg-modal-title" variant="h6" component="h2">
-                  Income / Expense
-                </Typography>
+                <p className="income-expense-name">Income / Expense</p>
                 <FormControl className="bdg-form-control" variant="standard" sx={{ m: 1 }}>
                   <Select
                     labelId="demo-simple-select-label"
@@ -217,8 +196,8 @@ function AddTransaction() {
               budget !== '' && (
                 <>
                   <div className="category-style">
-                    <Typography id="category-modal-title" variant="h6" component="h2">Category</Typography>
-                    <FormControl variant="standard" sx={{ m: 1, width: 230 }}>
+                    <p className="category-name">Category</p>
+                    <FormControl className="cat-form-control" variant="standard" sx={{ m: 1 }}>
                       <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -243,14 +222,9 @@ function AddTransaction() {
                       </Select>
                     </FormControl>
                   </div>
-                  <div
-                    className="border-stylee"
-                  />
                   <div className="amount-style">
                     <FormControl sx={{ m: 1 }} variant="standard">
-                      <Typography className="amount-modal-title" id="amount-modal-title" variant="h6" component="h2">
-                        Amount
-                      </Typography>
+                      <p className="amount-name">Amount</p>
                       <Input
                         className="input-amount"
                         type="number"
@@ -295,7 +269,7 @@ function AddTransaction() {
                 className="form-btn"
               >
                 <Button className="submit-btn" variant="contained" color="success" onClick={handleAddTransaction}>Add transaction</Button>
-                <Button className="cancel-btn" variant="contained" onClick={handleCloseBtn}>Cancel</Button>
+                <Button className="cancel-btn-adf" variant="contained" onClick={closeBtn}>Cancel</Button>
               </div>
             </div>
           </Box>
@@ -305,17 +279,13 @@ function AddTransaction() {
   );
 }
 
-function formatDateFns(date: any) {
-  return format(date, 'dd/MM/yyyy');
-}
-
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 820,
-  height: 400,
+  width: 800,
+  height: 300,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
