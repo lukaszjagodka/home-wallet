@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { TAccountOnList } from '../../types/types';
 import Charts from '../Charts/Charts';
 import Footer from '../Footer/Footer';
 import Menu from '../Menu/Menu';
@@ -8,8 +9,8 @@ import TransactionsList from '../transactions/TransactionsList/TransactionsList'
 import './Dashboard.css';
 
 function Dashboard() {
-  const { initializedDays } = useSelector(({ account }: any) => ({
-    initializedDays: account.labelDays,
+  const { labelDays } = useSelector(({ account }: TAccountOnList) => ({
+    labelDays: account.labelDays,
   }));
 
   return (
@@ -27,7 +28,7 @@ function Dashboard() {
           </div>
         </div>
         <div className="chart-container">
-          {initializedDays && <Charts />}
+          {labelDays && <Charts />}
         </div>
       </div>
       <div className="footer-container">
