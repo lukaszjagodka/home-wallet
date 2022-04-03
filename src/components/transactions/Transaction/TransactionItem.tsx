@@ -149,11 +149,7 @@ const Transaction = function Transaction(props: TProps) {
         </div>
         <div className="description">
           {
-            !isEdit && <p>{params.description}</p>
-          }
-          {
-            isEdit
-              && <Input value={inputDescription} onChange={handleChangeInputDescription} className="inputDescription" />
+            isEdit ? <Input value={inputDescription} onChange={handleChangeInputDescription} className="inputDescription" /> : <p>{params.description}</p>
           }
         </div>
 
@@ -167,17 +163,13 @@ const Transaction = function Transaction(props: TProps) {
         <div className={`amount-tr ${transType === BudgetTypeEnum.Income ? 'c-yellowgreen' : 'c-red'}`}>
           <h2>
             {
-            !isEdit && (
-            <p>
-              $
-              {params.amount}
-            </p>
-            )
-          }
-            {
-            isEdit
-              && <Input className="amount-input" value={inputAmount} inputProps={ariaLabel} onChange={handleChangeInputAmount} style={{ width: '100px' }} />
-          }
+              isEdit ? <Input className="amount-input" value={inputAmount} inputProps={ariaLabel} onChange={handleChangeInputAmount} style={{ width: '100px' }} /> : (
+                <p>
+                  $
+                  {params.amount}
+                </p>
+              )
+            }
           </h2>
         </div>
       </div>
