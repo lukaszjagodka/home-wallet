@@ -19,12 +19,12 @@ function DateSelector() {
   const [date, setDate] = useState<Date | null>(new Date());
   const [chosenMonth, setChosenMonth] = useState<string>('January');
   const [open, setOpen] = useState(false);
-  const { daysInChart } = useSelector(({ account }: any) => ({
-    daysInChart: account.labelDays,
+  const { labelDays } = useSelector(({ account }: any) => ({
+    labelDays: account.labelDays,
   }));
 
   useEffect(() => {
-    setChosenMonth(getMonthName(daysInChart[1]));
+    setChosenMonth(getMonthName(labelDays[1]));
   });
 
   useEffect(() => {
@@ -38,16 +38,16 @@ function DateSelector() {
     setOpen(false);
   }, [date]);
 
-  const handleClose = () => setOpen(false);
-  const dateSelector = () => setOpen(true);
+  const closeDateSelector = () => setOpen(false);
+  const openDateSelector = () => setOpen(true);
 
   return (
     <div>
-      <Button type="button" onClick={dateSelector}>{chosenMonth}</Button>
+      <Button type="button" onClick={openDateSelector}>{chosenMonth}</Button>
       <div className="modal-style">
         <Modal
           open={open}
-          onClose={handleClose}
+          onClose={closeDateSelector}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >

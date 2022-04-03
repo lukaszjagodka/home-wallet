@@ -32,7 +32,6 @@ const accountReducer = (state: TAccount = initialState, action: TAccountAction) 
         editMode: action.payload,
       };
     case 'UPDATE_CHART':
-      console.log(action.payload);
       return {
         ...state,
         updateChart: action.payload,
