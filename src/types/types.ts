@@ -14,7 +14,7 @@ export type TNewTransaction = {
   amount: number,
   selectedDay: Date | null,
   description: string,
-  whenObjAdded: Date
+  createdAt: Date
 };
 
 export type TTransactionAction = {

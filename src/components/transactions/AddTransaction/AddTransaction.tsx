@@ -126,7 +126,7 @@ function AddTransaction() {
       amount: Number(amount),
       selectedDay: date,
       description,
-      whenObjAdded: new Date(),
+      createdAt: new Date(),
     };
     dispatch(addTransaction(newTransaction));
     if (budget === BudgetTypeEnum.Income) {
