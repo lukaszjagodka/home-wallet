@@ -9,3 +9,10 @@
 .box-transactions-component {
   background-color: rgba(244, 245, 245, 0.835);
 }
+
+.emptyList {
+  height: 100px;
+  text-align: center;
+  display: table-cell;
+  transform: translate(155%, 20%);
+}

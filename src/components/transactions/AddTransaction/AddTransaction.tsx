@@ -94,9 +94,7 @@ function AddTransaction() {
     setCategory('');
   };
 
-  const handleCloseBtn = (event: any) => {
-    setOpen(false);
-  };
+  const closeBtn = () => { setOpen(false); };
 
   const handleChangeAmount = (event: any) => {
     const numberRegex = /^[0-9\b]+$/;
@@ -117,7 +115,7 @@ function AddTransaction() {
     setDescription('');
   };
 
-  const handleAddTransaction = (event: any) => {
+  const handleAddTransaction = () => {
     if (budget === '' || category === '' || amount === undefined || amount === '') return;
     const newTransaction: TNewTransaction = {
       id: uuidv4(),
@@ -134,16 +132,15 @@ function AddTransaction() {
     } else {
       dispatch(addOutflow(Number(amount)));
     }
-    handleClose();
+    closeAddTransaction();
     resetForm();
   };
 
-  const handleOpen = () => {
+  const openAddTransaction = () => {
     setOpen(true);
-    const resetBalance = inflow - outflow;
-    setBalance(resetBalance);
+    setBalance(inflow - outflow);
   };
-  const handleClose = () => {
+  const closeAddTransaction = () => {
     setOpen(false);
     resetForm();
   };
@@ -151,13 +148,13 @@ function AddTransaction() {
   return (
     <div>
       <div className="add-transaction-btn">
-        <Button onClick={handleOpen} disabled={editModeSelector}>Add Transaction</Button>
+        <Button onClick={openAddTransaction} disabled={editModeSelector}>Add Transaction</Button>
       </div>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={handleClose}
+        onClose={closeAddTransaction}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
@@ -272,7 +269,7 @@ function AddTransaction() {
                 className="form-btn"
               >
                 <Button className="submit-btn" variant="contained" color="success" onClick={handleAddTransaction}>Add transaction</Button>
-                <Button className="cancel-btn-adf" variant="contained" onClick={handleCloseBtn}>Cancel</Button>
+                <Button className="cancel-btn-adf" variant="contained" onClick={closeBtn}>Cancel</Button>
               </div>
             </div>
           </Box>

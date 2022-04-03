@@ -10,10 +10,6 @@ const TransactionsList = function TransactionsList() {
   const transactions = useSelector((state: TTransactionsOnList) => state.transactions.transactions);
   const [checked, setChecked] = useState(false);
 
-  const handleChange = () => {
-    setChecked((prev) => !prev);
-  };
-
   useEffect(() => {
     setTimeout(() => {
       setChecked(true);
@@ -25,9 +21,17 @@ const TransactionsList = function TransactionsList() {
       <Collapse in={checked}>
         <div className="transactions-component">
           <div className="box-transactions-component" />
-          {transactions.map((transactionObj: TNewTransaction) => (
+          {
+          transactions.length ? transactions.map((transactionObj: TNewTransaction) => (
             <TransactionItem key={transactionObj.id} params={transactionObj} />
-          ))}
+          )) : (
+            <div className="emptyList">
+              <h3>
+                Add new transaction
+              </h3>
+            </div>
+          )
+        }
         </div>
       </Collapse>
     </div>
